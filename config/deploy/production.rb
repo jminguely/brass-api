@@ -59,3 +59,5 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
+server "ssh-jminguely.alwaysdata.net", :user => "jminguely", :roles => %{web app}

@@ -9,7 +9,7 @@ set :repo_url, "git@example.com:me/my_repo.git"
 set :branch, 'dev'
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, "/var/www/my_app_name"
+set :deploy_to, "/home/jminguely/www/brass.hiphop/api/current"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
