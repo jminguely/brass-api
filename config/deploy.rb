@@ -2,14 +2,14 @@
 lock "~> 3.11.0"
 
 set :application, "brass-api"
-set :repo_url, "git@example.com:me/my_repo.git"
+set :repo_url, "https://github.com/jminguely/brass-api.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :branch, 'dev'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/jminguely/www/brass.hiphop/api/current"
+set :deploy_to, "/home/jminguely/www/brass.hiphop/api"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -38,3 +38,15 @@ set :deploy_to, "/home/jminguely/www/brass.hiphop/api/current"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+set :ssh_options, { :forward_agent => true }
+
+namespace :deploy do
+
+    desc 'Restart application'
+    task :restart do
+      invoke 'pm2:restart'
+    end
+  
+    after :publishing, :restart   
+  end
