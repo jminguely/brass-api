@@ -269,3 +269,82 @@
   INFO [53e15b8a] Running /usr/bin/env echo "Branch dev (at e932f8e1b09dca11579eb11baf22ffce002bd13c) deployed as release 20180817080356 by mingus" >> /home/jminguely/www/brass.hiphop/api/revisions.log as jminguely@ssh-jminguely.alwaysdata.net
  DEBUG [53e15b8a] Command: cd /home/jminguely/www/brass.hiphop/api/releases && /usr/bin/env echo "Branch dev (at e932f8e1b09dca11579eb11baf22ffce002bd13c) deployed as release 20180817080356 by mingus" >> /home/jminguely/www/brass.hiphop/api/revisions.log
   INFO [19764848] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2018-08-17 10:21:09 +0200 cap production deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [ce3c667e] Running /usr/bin/env mkdir -p /tmp as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [ce3c667e] Command: /usr/bin/env mkdir -p /tmp
+  INFO [cd3a0329] Finished in 0.584 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-brass-api-production-mingus.sh 0.0%
+  INFO Uploading /tmp/git-ssh-brass-api-production-mingus.sh 100.0%
+  INFO [915ee7cb] Running /usr/bin/env chmod 700 /tmp/git-ssh-brass-api-production-mingus.sh as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [915ee7cb] Command: /usr/bin/env chmod 700 /tmp/git-ssh-brass-api-production-mingus.sh
+  INFO [a32207c3] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [bef34b07] Running /usr/bin/env git ls-remote https://github.com/jminguely/brass-api.git HEAD as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [bef34b07] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-brass-api-production-mingus.sh" ; /usr/bin/env git ls-remote https://github.com/jminguely/brass-api.git HEAD )
+ DEBUG [57227396] 	6a01ffca04f7a52b5b37ba929270a5e2ae03d396	HEAD
+  INFO [57227396] Finished in 0.705 seconds with exit status 0 (successful).
+  INFO [00f4f300] Running /usr/bin/env mkdir -p /home/jminguely/www/brass.hiphop/api/shared /home/jminguely/www/brass.hiphop/api/releases as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [00f4f300] Command: /usr/bin/env mkdir -p /home/jminguely/www/brass.hiphop/api/shared /home/jminguely/www/brass.hiphop/api/releases
+  INFO [874e46e0] Finished in 0.115 seconds with exit status 0 (successful).
+ DEBUG [84a10853] Running [ -f /home/jminguely/www/brass.hiphop/api/current/REVISION ] as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [84a10853] Command: [ -f /home/jminguely/www/brass.hiphop/api/current/REVISION ]
+ DEBUG [827f6023] Finished in 0.117 seconds with exit status 0 (successful).
+ DEBUG [33e9b031] Running /usr/bin/env cat /home/jminguely/www/brass.hiphop/api/current/REVISION 2>/dev/null as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [33e9b031] Command: /usr/bin/env cat /home/jminguely/www/brass.hiphop/api/current/REVISION 2>/dev/null
+ DEBUG [f95fa2f9] 	e932f8e1b09dca11579eb11baf22ffce002bd13c
+ DEBUG [f95fa2f9] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [b85d8ecf] Running [ -f /home/jminguely/www/brass.hiphop/api/repo/HEAD ] as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [b85d8ecf] Command: [ -f /home/jminguely/www/brass.hiphop/api/repo/HEAD ]
+ DEBUG [c76d7163] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/jminguely/www/brass.hiphop/api/repo
+ DEBUG [c5abeaac] Running if test ! -d /home/jminguely/www/brass.hiphop/api/repo; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/repo'" 1>&2; false; fi as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [c5abeaac] Command: if test ! -d /home/jminguely/www/brass.hiphop/api/repo; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/repo'" 1>&2; false; fi
+ DEBUG [b0be40da] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [d15ef501] Running /usr/bin/env git remote set-url origin https://github.com/jminguely/brass-api.git as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [d15ef501] Command: cd /home/jminguely/www/brass.hiphop/api/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-brass-api-production-mingus.sh" ; /usr/bin/env git remote set-url origin https://github.com/jminguely/brass-api.git )
+  INFO [c18819ca] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [700e7ace] Running /usr/bin/env git remote update --prune as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [700e7ace] Command: cd /home/jminguely/www/brass.hiphop/api/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-brass-api-production-mingus.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [6149d73f] 	Fetching origin
+ DEBUG [6149d73f] 	From https://github.com/jminguely/brass-api
+   e932f8e..6a01ffc  dev        -> dev
+  INFO [6149d73f] Finished in 0.948 seconds with exit status 0 (successful).
+ DEBUG [99955547] Running if test ! -d /home/jminguely/www/brass.hiphop/api/repo; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/repo'" 1>&2; false; fi as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [99955547] Command: if test ! -d /home/jminguely/www/brass.hiphop/api/repo; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/repo'" 1>&2; false; fi
+ DEBUG [8be3b417] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [4b0e94f3] Running /usr/bin/env mkdir -p /home/jminguely/www/brass.hiphop/api/releases/20180817082111 as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [4b0e94f3] Command: cd /home/jminguely/www/brass.hiphop/api/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-brass-api-production-mingus.sh" ; /usr/bin/env mkdir -p /home/jminguely/www/brass.hiphop/api/releases/20180817082111 )
+  INFO [b2ed0777] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [411c996b] Running /usr/bin/env git archive dev | /usr/bin/env tar -x -f - -C /home/jminguely/www/brass.hiphop/api/releases/20180817082111 as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [411c996b] Command: cd /home/jminguely/www/brass.hiphop/api/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-brass-api-production-mingus.sh" ; /usr/bin/env git archive dev | /usr/bin/env tar -x -f - -C /home/jminguely/www/brass.hiphop/api/releases/20180817082111 )
+  INFO [88da2a6f] Finished in 0.946 seconds with exit status 0 (successful).
+ DEBUG [ab531285] Running if test ! -d /home/jminguely/www/brass.hiphop/api/repo; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/repo'" 1>&2; false; fi as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [ab531285] Command: if test ! -d /home/jminguely/www/brass.hiphop/api/repo; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/repo'" 1>&2; false; fi
+ DEBUG [9ac9a3b7] Finished in 0.104 seconds with exit status 0 (successful).
+ DEBUG [e1c931ee] Running /usr/bin/env git rev-list --max-count=1 dev as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [e1c931ee] Command: cd /home/jminguely/www/brass.hiphop/api/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-brass-api-production-mingus.sh" ; /usr/bin/env git rev-list --max-count=1 dev )
+ DEBUG [25cffde7] 	6a01ffca04f7a52b5b37ba929270a5e2ae03d396
+ DEBUG [25cffde7] Finished in 0.118 seconds with exit status 0 (successful).
+ DEBUG [d7550b34] Running if test ! -d /home/jminguely/www/brass.hiphop/api/releases/20180817082111; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/releases/20180817082111'" 1>&2; false; fi as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [d7550b34] Command: if test ! -d /home/jminguely/www/brass.hiphop/api/releases/20180817082111; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/releases/20180817082111'" 1>&2; false; fi
+ DEBUG [304383e9] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [b178e4dd] Running /usr/bin/env echo "6a01ffca04f7a52b5b37ba929270a5e2ae03d396" > REVISION as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [b178e4dd] Command: cd /home/jminguely/www/brass.hiphop/api/releases/20180817082111 && /usr/bin/env echo "6a01ffca04f7a52b5b37ba929270a5e2ae03d396" > REVISION
+  INFO [11611b71] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [a76516e5] Running /usr/bin/env ln -s /home/jminguely/www/brass.hiphop/api/releases/20180817082111 /home/jminguely/www/brass.hiphop/api/releases/current as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [a76516e5] Command: /usr/bin/env ln -s /home/jminguely/www/brass.hiphop/api/releases/20180817082111 /home/jminguely/www/brass.hiphop/api/releases/current
+  INFO [6b9c1eb6] Finished in 0.106 seconds with exit status 0 (successful).
+  INFO [e5db7fb6] Running /usr/bin/env mv /home/jminguely/www/brass.hiphop/api/releases/current /home/jminguely/www/brass.hiphop/api as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [e5db7fb6] Command: /usr/bin/env mv /home/jminguely/www/brass.hiphop/api/releases/current /home/jminguely/www/brass.hiphop/api
+  INFO [1c88c4c7] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [99fb4df7] Running /usr/bin/env ls -x /home/jminguely/www/brass.hiphop/api/releases as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [99fb4df7] Command: /usr/bin/env ls -x /home/jminguely/www/brass.hiphop/api/releases
+ DEBUG [0d6e902e] 	20180817080356	20180817082111
+ DEBUG [0d6e902e] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [1c4c884e] Running if test ! -d /home/jminguely/www/brass.hiphop/api/releases; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/releases'" 1>&2; false; fi as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [1c4c884e] Command: if test ! -d /home/jminguely/www/brass.hiphop/api/releases; then echo "Directory does not exist '/home/jminguely/www/brass.hiphop/api/releases'" 1>&2; false; fi
+ DEBUG [c277a7bb] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [d0739533] Running /usr/bin/env echo "Branch dev (at 6a01ffca04f7a52b5b37ba929270a5e2ae03d396) deployed as release 20180817082111 by mingus" >> /home/jminguely/www/brass.hiphop/api/revisions.log as jminguely@ssh-jminguely.alwaysdata.net
+ DEBUG [d0739533] Command: cd /home/jminguely/www/brass.hiphop/api/releases && /usr/bin/env echo "Branch dev (at 6a01ffca04f7a52b5b37ba929270a5e2ae03d396) deployed as release 20180817082111 by mingus" >> /home/jminguely/www/brass.hiphop/api/revisions.log
+  INFO [2ab95c25] Finished in 0.111 seconds with exit status 0 (successful).
