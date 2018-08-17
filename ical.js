@@ -64,7 +64,7 @@ const generate_ical = () => {
     res.end(value);
   })
 
-  app.listen(process.env.SERVER_PORT, process.env.SERVER_IP, function () {
-    console.log(`📣  :: BMF Calendar API running on: http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}`)
+  app.listen(process.env.SERVER_PORT_ICS, process.env.SERVER_IP, function () {
+    console.log(`📣  :: BMF Calendar API running on: http://${process.env.SERVER_IP}:${process.env.SERVER_PORT_ICS}`)
   })
 }
