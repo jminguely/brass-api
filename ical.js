@@ -25,8 +25,8 @@ base('Concerts').select().eachPage(function page(records, fetchNextPage) {
     let event = {
       title:              `BMF - ${record.get('Titre') || record.get('Type')}`,
       location:           record.get('Ville'),
+      description:        `${record.get('Export')}\n\n${record.get('Informations') || ""}`,
       url:                record.get('Export'),
-      description:        record.get('Export')+"\n\n"+record.get('Informations')
     }
 
     if (record.get('Date fin')) {
