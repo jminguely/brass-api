@@ -41,8 +41,6 @@ base('Concerts').select().eachPage(function page(records, fetchNextPage) {
       event.end =         date_start.format('YYYY-M-D').split("-");
     }
 
-    console.log(event);
-
     events.push(event);
 
   });
