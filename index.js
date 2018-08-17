@@ -6,7 +6,7 @@ console.log(process.env.SERVER_PORT);
 console.log(process.env.SERVER_IP);
 
 app.get('/', function (req, res) {
-  res.send('Hello World! TEST')
+  res.send('Hello World!')
 })
 
 app.listen(process.env.SERVER_PORT, process.env.SERVER_IP, function () {
