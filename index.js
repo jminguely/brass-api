@@ -1,24 +1,14 @@
 const express = require('express')
 const app = express()
+require('dotenv').load();
 
-let SERVER_PORT = 8101;
-let SERVER_IP = "0.0.0.0";
-
-console.log(process.env.NODE_ENV);
-console.log('No value for FOO yet:', process.env.FOO);
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
-  SERVER_PORT = "127.0.0.1";
-  SERVER_IP = 3000;
-}
-
-console.log('Now the value for FOO is:', process.env.FOO);
+console.log(process.env.SERVER_PORT);
+console.log(process.env.SERVER_IP);
 
 app.get('/', function (req, res) {
   res.send('Hello World! TEST', process)
 })
 
-app.listen(SERVER_PORT, SERVER_IP, function () {
-  console.log(`Example app listening on: ${SERVER_IP}:${SERVER_PORT}`)
+app.listen(process.env.SERVER_PORT, process.env.SERVER_IP, function () {
+  console.log(`Example app listening on: ${process.env.SERVER_IP}:${process.env.SERVER_PORT}`)
 })
