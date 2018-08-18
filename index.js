@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
 app.get('/concerts/:concert_id', function (req, res) {
   const concert_id = req.params.concert_id;
 
-  base('Concerts').select({filterByFormula: "RECORD_ID() = 'recsEx5fgN68CLCwb'"}).eachPage(function page(records, fetchNextPage) {
+  base('Concerts').select({filterByFormula: `RECORD_ID() = '${concert_id}'`}).eachPage(function page(records, fetchNextPage) {
     records.forEach(function(record) {
       const event = {
         type:         record.get('Type'),

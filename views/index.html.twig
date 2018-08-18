@@ -16,7 +16,7 @@
             <h1>{{ event.title }}</h1>
             <hr>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-12">
             <h2>{{ event.type }} - {{ event.city }}</h2>
             <div class="row">
                 <div class="col-md-4"><strong>Informations</strong></div>
@@ -26,9 +26,6 @@
                 <div class="col-md-4"><strong>Fin</strong></div>
                 <div class="col-md-8"><p>{{ event.end }}</p></div>
             </div>
-          </div>
-          <div class="col-md-4">
-            <pre>{{ dump(event) }}</pre>
           </div>
       </div>
   </div>
