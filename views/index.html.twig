@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr_CH" class="h-100">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Brassmaster Flash API</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex h-100">
+  <div class="container my-auto">
+      <div class="row">
+          <div class="col-md-12">
+            <h1>{{ event.title }}</h1>
+            <hr>
+          </div>
+          <div class="col-md-8">
+            <h2>{{ event.type }} - {{ event.city }}</h2>
+            <div class="row">
+                <div class="col-md-4"><strong>Informations</strong></div>
+                <div class="col-md-8"><p>{{ event.informations }}</p></div>
+                <div class="col-md-4"><strong>Début</strong></div>
+                <div class="col-md-8"><p>{{ event.start }}</p></div>
+                <div class="col-md-4"><strong>Fin</strong></div>
+                <div class="col-md-8"><p>{{ event.end }}</p></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <pre>{{ dump(event) }}</pre>
+          </div>
+      </div>
+  </div>
+</body>
+
+</html>

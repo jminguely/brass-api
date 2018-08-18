@@ -3,19 +3,16 @@ const app = express();
 const ics = require('ics');
 const Airtable = require('airtable');
 const moment = require('moment');
-const dotenv = require('dotenv');
-
-dotenv.load();
+const dotenv = require('dotenv').load();
 
 Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
-    apiKey: 'keyO8mLzx0rpa46cY'
+    apiKey: process.env.AIRTABLE_API_KEY
 });
 
 const base = Airtable.base('appOvGQqOefkMpE9o');
 
 let events = [];
-
 
 base('Concerts').select().eachPage(function page(records, fetchNextPage) {
   records.forEach(function(record) {
