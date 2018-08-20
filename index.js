@@ -30,11 +30,46 @@ app.get('/concerts/:concert_id', function (req, res) {
         start:        moment(record.get('Date check-in')).format('LLLL'),
         end:          moment(record.get('Date fin')).format('LLLL'),
       };
-      res.render('index.html.twig', {
+      res.render('concerts.html.twig', {
         event : event,
       });
     });
   
+    fetchNextPage();
+  
+  }, function done(err) {
+    if (err) { console.error(err); return; }
+  });
+})
+
+app.get('/salaires/:salaire_id', function (req, res) {
+  const salaire_id = req.params.salaire_id;
+
+  base('Salaires').select({filterByFormula: `RECORD_ID() = '${salaire_id}'`}).eachPage(function page(salaires, fetchNextPage) {
+    
+    salaire = salaires[0];
+
+    let data = {
+      name:         salaire.get('Name'),
+      nombre:       salaire.get('Nombre d\'engagmenet'),
+      montant:      salaire.get('Montant'),
+      musicien:     {}
+    };
+
+    base('Musiciens').select({filterByFormula: `RECORD_ID() = '${salaire.get('Musicien')[0]}'`}).eachPage((musiciens) => {
+      console.log(musiciens[0]);
+      data.musicien.nom = musiciens[0].get('Nom');
+      data.musicien.adresse = musiciens[0].get('Adresse');
+      data.musicien.iban = musiciens[0].get('IBAN');
+    });
+
+    setTimeout(() => {
+      res.render('salaires.html.twig', {
+        salaire : data,
+      });  
+    }, 1000);
+
+
     fetchNextPage();
   
   }, function done(err) {
