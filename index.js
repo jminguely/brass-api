@@ -57,7 +57,6 @@ app.get('/salaires/:salaire_id', function (req, res) {
     };
 
     base('Musiciens').select({filterByFormula: `RECORD_ID() = '${salaire.get('Musicien')[0]}'`}).eachPage((musiciens) => {
-      console.log(musiciens[0]);
       data.musicien.nom = musiciens[0].get('Nom');
       data.musicien.adresse = musiciens[0].get('Adresse');
       data.musicien.iban = musiciens[0].get('IBAN');
