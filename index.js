@@ -3,6 +3,7 @@ const app = express();
 const Airtable = require('airtable');
 const dotenv = require('dotenv').load();
 const Twig = require("twig");
+const ics = require('ics');
 const moment = require('moment');
 moment.locale("fr_FR");
 
@@ -15,6 +16,43 @@ const base = Airtable.base('appOvGQqOefkMpE9o');
 
 app.get('/', function (req, res) {
   res.send('It Works')
+})
+
+app.get('/calendar', function (req, res) {
+  let events = [];
+  base('Concerts').select().eachPage(function page(records, fetchNextPage) {
+    records.forEach(function(record) {
+      const date_start = moment(record.get('Date check-in'));
+      const date_end = moment(record.get('Date fin'));
+  
+      let event = {
+        title:              `BMF - ${record.get('Titre') || record.get('Type')}`,
+        location:           record.get('Ville'),
+        description:        `${record.get('Export')}\n\n${record.get('Informations') || ""}`,
+        url:                record.get('Export'),
+      }
+  
+      if (record.get('Date fin')) {
+        event.start =       date_start.format('YYYY-M-D-H-mm').split("-");
+        event.end =         date_end.format('YYYY-M-D-H-mm').split("-");
+      } else {
+        event.start =       date_start.format('YYYY-M-D').split("-");
+        event.end =         date_start.format('YYYY-M-D').split("-");
+      }
+  
+      events.push(event);
+  
+    });
+  
+    fetchNextPage();
+  
+    const { error, value } = ics.createEvents(events);
+    req.is('text/calendar')
+    res.send(value);
+  
+  }, function done(err) {
+    if (err) { console.error(err); return; }
+  });
 })
 
 app.get('/concerts/:concert_id', function (req, res) {
@@ -77,5 +115,5 @@ app.get('/salaires/:salaire_id', function (req, res) {
 })
 
 app.listen(process.env.SERVER_PORT, process.env.SERVER_IP, function () {
-  console.log(`BMF API server on: https://${process.env.SERVER_IP}:${process.env.SERVER_PORT}`)
+  console.log(`BMF API server on: http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}`)
 })
