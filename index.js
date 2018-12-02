@@ -55,28 +55,41 @@ app.get('/calendar', function (req, res) {
   });
 })
 
-app.get('/concerts/:concert_id', function (req, res) {
+app.get('/concerts/:concert_id', async function (req, res) {
   const concert_id = req.params.concert_id;
 
-  base('Concerts').select({filterByFormula: `RECORD_ID() = '${concert_id}'`}).eachPage(function page(records, fetchNextPage) {
-    records.forEach(function(record) {
-      const event = {
-        type:         record.get('Type'),
-        title:        record.get('Titre'),
-        city:         record.get('Ville'),
-        informations: record.get('Informations'),
-        start:        moment(record.get('Date check-in')).format('LLLL'),
-        end:          moment(record.get('Date fin')).format('LLLL'),
-      };
-      res.render('concerts.html.twig', {
-        event : event,
+  const musiciens = await base('Musiciens').select().firstPage();
+
+  const effectifs = {};
+
+  const concerts = await base('Concerts').select({filterByFormula: `RECORD_ID() = '${concert_id}'`}).firstPage();
+  concerts.forEach(concert => {
+  Object.keys(concert.fields).forEach(key => {
+  if (key.includes('[Musiciens]')) {
+    const trimKey = key.slice(0, -12);
+    effectifs[trimKey] = {};
+    concert.fields[key].forEach(async musicienId => {
+      musiciens.forEach(musicien => {
+        if (musicien.id === musicienId) {
+          effectifs[trimKey][musicienId] = [];
+          effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
+        }
       });
     });
-  
-    fetchNextPage();
-  
-  }, function done(err) {
-    if (err) { console.error(err); return; }
+  }});
+
+    const event = {
+    type:         concert.get('Type'),
+      title:        concert.get('Titre'),
+      city:         concert.get('Ville'),
+      informations: concert.get('Informations'),
+      start:        moment(concert.get('Date check-in')).format('LLLL'),
+      end:          moment(concert.get('Date fin')).format('LLLL'),
+      effectifs:    effectifs
+    };
+    res.render('concerts.html.twig', {
+      event : event,
+    });
   });
 })
 

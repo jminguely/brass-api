@@ -26,6 +26,24 @@
                 <div class="col-md-4"><strong>Fin</strong></div>
                 <div class="col-md-8"><p>{{ event.end }}</p></div>
             </div>
+            <h2>Effectifs</h2>
+            <table class="table">
+              <tr>
+                {% for key, registre in event.effectifs %}
+                  <th>{{ key }}</th>
+                {% endfor %}
+              </tr>
+              <tr>
+                {% for key, registre in event.effectifs %}
+                  <td>
+                  {% for musicien in registre %}
+                    {{musicien.Nom}}<br/>
+                  {% endfor %}
+                  </td>
+                {% endfor %}
+              </tr>
+            </table>
+            
           </div>
       </div>
   </div>
