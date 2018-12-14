@@ -12,9 +12,17 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      border-top: 0;
       background-color: #e61e41;
       color: white;
+    }
 
+    .b-l {
+      border-left: 2px solid #e61e41;
+    }
+
+    .b-l-light {
+      border-left: 1px solid #eee;
     }
 
     .clickable-row:hover {
@@ -37,19 +45,20 @@
               <tr class="table-header">
                 <th>Date</th>
                 <th>Titre/Ville</th>
-                <th>Tp</th>
+                <th class="b-l">Tp</th>
                 <th>Sx</th>
                 <th>Tb</th>
                 <th>B</th>
                 <th>P</th>
                 <th>V</th>
-                <th>Absents</th>
+                <th class="b-l">Absents</th>
+                <th>Attente de réponse</th>
               </tr>
               {% for event in events %}
                 <tr class="clickable-row" onclick="window.location='/concerts/{{ event.id }}';">
                   <td>{{ event.start }}<br />{{ event.time }}</td>
-                  <td>{{ event.title }}<br />{{ event.city }}</td>
-                  <td>
+                  <td class="b-l-light">{{ event.title }}<br />{{ event.city }}</td>
+                  <td class="b-l">
                     <ul>
                     {% for musicien in event.effectifs['Trumpet I'] %}
                       <li>{{musicien.Nom | split(' ')[0]}}</li>
@@ -100,12 +109,17 @@
                     {% endfor %}
                     </ul>
                   </td>
-                  <td>
+                  <td class="b-l">
                     <ul>
                     {% for musicien in event.effectifs['Absents'] %}
                       <li>{{musicien.Nom | split(' ')[0]}}</li>
                     {% endfor %}
                     </ul>
+                  </td>
+                  <td class="b-l-light">
+                      {% for musicien in event.nonRepondu %}
+                        <li>{{musicien | split(' ')[0]}}</li>
+                      {% endfor %}
                   </td>
                 </tr>
               {% endfor %}

@@ -57,19 +57,29 @@ app.get('/calendar', function (req, res) {
 
 app.get('/concerts', async function (req, res) {
 
-  const musiciens = await base('Musiciens').select().firstPage();
+  const musiciens = await base('Musiciens').select(
+    {
+      filterByFormula: `Statut = 'Titulaire'`
+    }
+  ).firstPage();
 
+  let nonReponduOriginal = {};
+  musiciens.forEach(musicien => {
+    nonReponduOriginal[musicien.id] = musicien.get('Nom');
+  });
+  
   let events = [];
 
   const concerts = await base('Concerts').select(
-      {
-        filterByFormula: `Statut = 'Futur'`,
-        sort: [{field: 'Date check-in', direction: 'asc'}]
-      }
-    ).firstPage();
+    {
+      filterByFormula: `Statut = 'Futur'`,
+      sort: [{field: 'Date check-in', direction: 'asc'}]
+    }
+  ).firstPage();
 
 
   concerts.forEach(concert => {
+    let nonRepondu = Object.assign({}, nonReponduOriginal);
     let effectifs = {};
     let event = {};
     Object.keys(concert.fields).forEach(key => {
@@ -81,20 +91,25 @@ app.get('/concerts', async function (req, res) {
             if (musicien.id === musicienId) {
               effectifs[trimKey][musicienId] = [];
               effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
+              delete nonRepondu[musicien.id];
             }
           });
         });
       }
     });
+
+    console.log(concert);
+
     event = {
       id:           concert.id,
+      title:         concert.get('Titre'),
       type:         concert.get('Type'),
-      title:        concert.get('Titre'),
       city:         concert.get('Ville'),
       informations: concert.get('Informations'),
       start:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
       time:         moment(concert.get('Date check-in')).format('HH:mm'),
-      effectifs:    effectifs
+      effectifs:    effectifs,
+      nonRepondu:   nonRepondu
     };
     events.push(event);
   });
@@ -107,12 +122,22 @@ app.get('/concerts', async function (req, res) {
 app.get('/concerts/:concert_id', async function (req, res) {
   const concert_id = req.params.concert_id;
 
-  const musiciens = await base('Musiciens').select().firstPage();
+  const musiciens = await base('Musiciens').select(
+    {
+      filterByFormula: `Statut = 'Titulaire'`
+    }
+  ).firstPage();
 
+  let nonReponduOriginal = {};
+  musiciens.forEach(musicien => {
+    nonReponduOriginal[musicien.id] = musicien.get('Nom');
+  });
+  
   const effectifs = {};
 
   const concerts = await base('Concerts').select({filterByFormula: `RECORD_ID() = '${concert_id}'`}).firstPage();
   concerts.forEach(concert => {
+  let nonRepondu = Object.assign({}, nonReponduOriginal);
   Object.keys(concert.fields).forEach(key => {
   if (key.includes('[Musiciens]')) {
     const trimKey = key.slice(0, -12);
@@ -122,19 +147,24 @@ app.get('/concerts/:concert_id', async function (req, res) {
         if (musicien.id === musicienId) {
           effectifs[trimKey][musicienId] = [];
           effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
+          delete nonRepondu[musicien.id];
         }
       });
     });
   }});
 
     const event = {
-    type:         concert.get('Type'),
+      type:         concert.get('Type'),
+      address:      concert.get('Adresse'),
       title:        concert.get('Titre'),
       city:         concert.get('Ville'),
+      cachet:       concert.get('Cachet'),
+      documents:     concert.get('Feuille de route'),
       informations: concert.get('Informations'),
       start:        moment(concert.get('Date check-in')).format('LLLL'),
       end:          moment(concert.get('Date fin')).format('LLLL'),
-      effectifs:    effectifs
+      effectifs:    effectifs,
+      nonRepondu:   nonRepondu
     };
     res.render('concert.html.twig', {
       event : event,
