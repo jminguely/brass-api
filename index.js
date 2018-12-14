@@ -55,6 +55,55 @@ app.get('/calendar', function (req, res) {
   });
 })
 
+app.get('/concerts', async function (req, res) {
+
+  const musiciens = await base('Musiciens').select().firstPage();
+
+  let events = [];
+
+  const concerts = await base('Concerts').select(
+      {
+        filterByFormula: `Statut = 'Futur'`,
+        sort: [{field: 'Date check-in', direction: 'asc'}]
+      }
+    ).firstPage();
+
+
+  concerts.forEach(concert => {
+    let effectifs = {};
+    let event = {};
+    Object.keys(concert.fields).forEach(key => {
+      if (key.includes('[Musiciens]')) {
+        const trimKey = key.slice(0, -12);
+        effectifs[trimKey] = {};
+        concert.fields[key].forEach(async musicienId => {
+          musiciens.forEach(musicien => {
+            if (musicien.id === musicienId) {
+              effectifs[trimKey][musicienId] = [];
+              effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
+            }
+          });
+        });
+      }
+    });
+    event = {
+      id:           concert.id,
+      type:         concert.get('Type'),
+      title:        concert.get('Titre'),
+      city:         concert.get('Ville'),
+      informations: concert.get('Informations'),
+      start:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
+      time:         moment(concert.get('Date check-in')).format('HH:mm'),
+      effectifs:    effectifs
+    };
+    events.push(event);
+  });
+
+  res.render('concerts.html.twig', {
+    events : events,
+  });
+})
+
 app.get('/concerts/:concert_id', async function (req, res) {
   const concert_id = req.params.concert_id;
 
@@ -87,7 +136,7 @@ app.get('/concerts/:concert_id', async function (req, res) {
       end:          moment(concert.get('Date fin')).format('LLLL'),
       effectifs:    effectifs
     };
-    res.render('concerts.html.twig', {
+    res.render('concert.html.twig', {
       event : event,
     });
   });
