@@ -19,6 +19,10 @@
       background: #eee;
     }
 
+    .table-concert td {
+      font-size: 0.75em;
+    }
+
 
     .b-l {
       border-left: 2px solid #e61e41;
@@ -63,7 +67,7 @@
               <tr>
                 <th>Concerts</th>
                 <td>
-                  <table class="table">
+                  <table class="table table-concert">
                    {% for gig in musicien.gigs %}
                    <tr class="clickable-row" onclick="window.location='/concerts/{{ gig.id }}';">
                     <td>{{ gig.date }} <strong>{{ gig.titre}}</strong></td>
