@@ -37,6 +37,10 @@
     ul {
       padding: 0 0 0 1em;
     }
+
+    .btn-sm {
+      font-size: 0.8em;
+    }
   </style>
 </head>
 
@@ -63,8 +67,13 @@
               </tr>
               {% for event in events %}
                 <tr class="clickable-row" onclick="window.location='/concerts/{{ event.id }}';">
-                  <td>{{ event.start }}<br />{{ event.time }}</td>
-                  <td class="b-l-light">{{ event.title }}<br />{{ event.city }}</td>
+                  <td>
+                  {{ event.start }}<br />{{ event.time }}
+                  </td>
+                  <td class="b-l-light">
+                  {{ event.title }}<br />{{ event.city }}<br /><br />
+                  <a href="/concerts/{{ event.id }}" class="btn btn-danger btn-sm">Plus d'infos !</a>
+                  </td>
                   <td class="b-l">
                     <ul>
                     {% for musicien in event.effectifs['Trumpet I'] %}

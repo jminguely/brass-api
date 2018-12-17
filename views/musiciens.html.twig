@@ -36,6 +36,10 @@
     ul {
       padding: 0 0 0 1em;
     }
+
+    .btn-sm {
+      font-size: 1em;
+    }
   </style>
 </head>
 
@@ -53,6 +57,7 @@
                 <th>Instruments</th>
                 <th>Téléphone</th>
                 <th>E-Mail</th>
+                <th></th>
               </tr>
               {% for musicien in musiciens %}
                 <tr class="clickable-row" onclick="window.location='/musiciens/{{ musicien.id }}';">
@@ -64,6 +69,7 @@
                   </td>
                   <td><a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a> </td>
                   <td><a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a> </td>
+                  <td><a class="btn btn-sm btn-danger" href="/musiciens/{{ musicien.id }}">Détails</a></td>
                 </tr>
               {% endfor %}
             </table>

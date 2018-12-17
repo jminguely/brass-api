@@ -43,10 +43,10 @@ set :ssh_options, { :forward_agent => true }
 
 namespace :deploy do
 
-    desc 'Restart application'
-    task :restart do
-      invoke 'pm2:restart'
-    end
-  
-    after :publishing, :restart   
+  desc 'Restart application'
+  task :restart do
+    invoke 'pm2:restart'
   end
+
+  after :publishing, :restart   
+end
