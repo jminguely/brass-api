@@ -153,7 +153,11 @@ app.get('/concerts', async function (req, res) {
 
   const musiciens = await base('Musiciens').select(
     {
-      filterByFormula: `Statut = 'Titulaire'`
+      filterByFormula: `OR(
+        Statut = 'Remplaçant',
+        Statut = 'Titulaire'
+      )
+    `
     }
   ).firstPage();
 
@@ -179,14 +183,17 @@ app.get('/concerts', async function (req, res) {
       if (key.includes('[Musiciens]')) {
         const trimKey = key.slice(0, -12);
         effectifs[trimKey] = {};
-        concert.fields[key].forEach(async musicienId => {
-          musiciens.forEach(musicien => {
+        musiciens.forEach(musicien => {
+          concert.fields[key].forEach(async musicienId => {
             if (musicien.id === musicienId) {
               effectifs[trimKey][musicienId] = [];
               effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
               delete nonRepondu[musicien.id];
             }
           });
+          if (musicien.fields.Statut == "Remplaçant") {
+            delete nonRepondu[musicien.id];
+          }
         });
       }
     });
@@ -215,7 +222,11 @@ app.get('/concerts/:concert_id', async function (req, res) {
 
   const musiciens = await base('Musiciens').select(
     {
-      filterByFormula: `Statut = 'Titulaire'`
+      filterByFormula: `OR(
+        Statut = 'Remplaçant',
+        Statut = 'Titulaire'
+      )
+    `
     }
   ).firstPage();
 
@@ -234,14 +245,17 @@ app.get('/concerts/:concert_id', async function (req, res) {
   if (key.includes('[Musiciens]')) {
     const trimKey = key.slice(0, -12);
     effectifs[trimKey] = {};
-    concert.fields[key].forEach(async musicienId => {
-      musiciens.forEach(musicien => {
+    musiciens.forEach(musicien => {
+      concert.fields[key].forEach(async musicienId => {
         if (musicien.id === musicienId) {
           effectifs[trimKey][musicienId] = [];
           effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
           delete nonRepondu[musicien.id];
         }
       });
+      if (musicien.fields.Statut == "Remplaçant") {
+        delete nonRepondu[musicien.id];
+      }
     });
   }});
 
@@ -251,7 +265,7 @@ app.get('/concerts/:concert_id', async function (req, res) {
     title:        concert.get('Titre'),
     city:         concert.get('Ville'),
     cachet:       concert.get('Cachet'),
-    documents:     concert.get('Feuille de route'),
+    documents:    concert.get('Feuille de route'),
     informations: concert.get('Informations'),
     start:        moment(concert.get('Date check-in')).format('LLLL'),
     end:          moment(concert.get('Date fin')).format('LLLL'),
