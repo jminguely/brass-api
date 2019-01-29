@@ -1,0 +1,9 @@
+{% if musicien.Duplicate  %}
+  <li class="text-danger" title="Attention doublon !">
+    <strong>{{musicien.Nom | split(' ')[0]}}</strong>
+  </li>
+{% else %}
+  <li>
+    {{musicien.Nom | split(' ')[0]}}
+  </li>
+{% endif %}

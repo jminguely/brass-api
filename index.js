@@ -177,18 +177,26 @@ app.get('/concerts', async function (req, res) {
 
   concerts.forEach(concert => {
     let nonRepondu = Object.assign({}, nonReponduOriginal);
+    let effectifsForDuplicate = [];
     let effectifs = {};
     let event = {};
     Object.keys(concert.fields).forEach(key => {
       if (key.includes('[Musiciens]')) {
-        const trimKey = key.slice(0, -12);
-        effectifs[trimKey] = {};
+        const registre = key.slice(0, -12);
+        effectifs[registre] = {};
         musiciens.forEach(musicien => {
           concert.fields[key].forEach(async musicienId => {
             if (musicien.id === musicienId) {
-              effectifs[trimKey][musicienId] = [];
-              effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
+              effectifs[registre][musicienId] = [];
+              effectifs[registre][musicienId]['Nom'] = musicien.get('Nom');
+              effectifs[registre][musicienId]['Id'] = musicien.id;
               delete nonRepondu[musicien.id];
+
+              if (!effectifsForDuplicate.includes(musicienId)){
+                effectifsForDuplicate.push(musicienId);
+              } else {
+                effectifs[registre][musicienId]['Duplicate'] = true;
+              }
             }
           });
           if (musicien.fields.Statut == "Remplaçant") {
@@ -243,13 +251,13 @@ app.get('/concerts/:concert_id', async function (req, res) {
   let nonRepondu = Object.assign({}, nonReponduOriginal);
   Object.keys(concert.fields).forEach(key => {
   if (key.includes('[Musiciens]')) {
-    const trimKey = key.slice(0, -12);
-    effectifs[trimKey] = {};
+    const registre = key.slice(0, -12);
+    effectifs[registre] = {};
     musiciens.forEach(musicien => {
       concert.fields[key].forEach(async musicienId => {
         if (musicien.id === musicienId) {
-          effectifs[trimKey][musicienId] = [];
-          effectifs[trimKey][musicienId]['Nom'] = musicien.get('Nom');
+          effectifs[registre][musicienId] = [];
+          effectifs[registre][musicienId]['Nom'] = musicien.get('Nom');
           delete nonRepondu[musicien.id];
         }
       });

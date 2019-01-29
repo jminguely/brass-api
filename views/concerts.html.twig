@@ -77,58 +77,58 @@
                   <td class="b-l">
                     <ul>
                     {% for musicien in event.effectifs['Trumpet I'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     {% for musicien in event.effectifs['Trumpet II'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
                   <td>
                     <ul>
                     {% for musicien in event.effectifs['Saxophone alto'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     {% for musicien in event.effectifs['Saxophone tenor'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     {% for musicien in event.effectifs['Saxophone barython'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
                   <td>
                     <ul>
                     {% for musicien in event.effectifs['Trombone'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
                   <td>
                     <ul>
                     {% for musicien in event.effectifs['Sousaphone'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
                   <td>
                     <ul>
                     {% for musicien in event.effectifs['Percu'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
                   <td>
                     <ul>
                     {% for musicien in event.effectifs['MC'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
                   <td class="b-l">
                     <ul>
                     {% for musicien in event.effectifs['Absents'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
+                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     </ul>
                   </td>
