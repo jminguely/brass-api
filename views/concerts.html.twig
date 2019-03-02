@@ -56,6 +56,7 @@
               <tr class="table-header">
                 <th>Date</th>
                 <th>Titre/Ville</th>
+                <th>Statut</th>
                 <th class="b-l">Tp</th>
                 <th>Sx</th>
                 <th>Tb</th>
@@ -71,8 +72,11 @@
                   {{ event.start }}<br />{{ event.time }}
                   </td>
                   <td class="b-l-light">
-                  {{ event.title }}<br />{{ event.city }}<br /><br />
-                  <a href="/concerts/{{ event.id }}" class="btn btn-danger btn-sm">Plus d'infos !</a>
+                    {{ event.title }}<br />{{ event.city }}<br /><br />
+                    <a href="/concerts/{{ event.id }}" class="btn btn-danger btn-sm">Plus d'infos !</a>
+                  </td>
+                  <td>
+                    {{ event.statut }}
                   </td>
                   <td class="b-l">
                     <ul>

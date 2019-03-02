@@ -20,7 +20,12 @@ app.get('/', function (req, res) {
 
 app.get('/calendar', function (req, res) {
   let events = [];
-  base('Concerts').select().eachPage(function page(records, fetchNextPage) {
+    base('Concerts').select(
+      {
+        filterByFormula: `Statut = 'Confirmé'`,
+        sort: [{field: 'Date check-in', direction: 'asc'}]
+      }
+    ).eachPage(function page(records, fetchNextPage) {
     records.forEach(function(record) {
       const date_start = moment(record.get('Date check-in'));
       const date_end = moment(record.get('Date fin'));
@@ -33,11 +38,11 @@ app.get('/calendar', function (req, res) {
       }
   
       if (record.get('Date fin')) {
-        event.start =       date_start.format('YYYY-M-D-H-mm').split("-");
-        event.end =         date_end.format('YYYY-M-D-H-mm').split("-");
+        event.start =       date_start.format('YYYY-M-D-H-mm').split("-").map(Number);
+        event.end =         date_end.format('YYYY-M-D-H-mm').split("-").map(Number);
       } else {
-        event.start =       date_start.format('YYYY-M-D').split("-");
-        event.end =         date_start.format('YYYY-M-D').split("-");
+        event.start =       date_start.format('YYYY-M-D').split("-").map(Number);
+        event.end =         date_start.format('YYYY-M-D').split("-").map(Number);
       }
   
       events.push(event);
@@ -96,7 +101,7 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
 
   const concerts = await base('Concerts').select(
     {
-      filterByFormula: `Statut = 'Futur'`,
+      filterByFormula: `Past = 'Future'`,
       sort: [{field: 'Date check-in', direction: 'asc'}]
     }
   ).firstPage();
@@ -170,7 +175,7 @@ app.get('/concerts', async function (req, res) {
 
   const concerts = await base('Concerts').select(
     {
-      filterByFormula: `Statut = 'Futur'`,
+      filterByFormula: `Past = 'Future'`,
       sort: [{field: 'Date check-in', direction: 'asc'}]
     }
   ).firstPage();
@@ -208,6 +213,7 @@ app.get('/concerts', async function (req, res) {
 
     event = {
       id:           concert.id,
+      statut:       concert.get('Statut'),
       title:        concert.get('Titre'),
       type:         concert.get('Type'),
       city:         concert.get('Ville'),
