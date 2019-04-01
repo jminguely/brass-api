@@ -23,118 +23,140 @@
   <div class="container my-4">
     <div class="row">
       <div class="col-2"><a href="/concerts" class="btn btn-danger">←</a></div>
-      <div class="col-8 text-center"><h1>Brassmaster Flash: {{ event.title }}</h1></div>
     </div>
-      <div class="row">
-
-          <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-4"><strong>Ville</strong></div>
-                <div class="col-md-8"><p>{{ event.city }}</p></div>
-                <div class="col-md-4"><strong>Adresse</strong></div>
-                <div class="col-md-8"><p>{{ event.address }}</p></div>
-                <div class="col-md-4"><strong>Cachet</strong></div>
-                <div class="col-md-8"><p>{{ event.cachet }}</p></div>
-                <div class="col-md-4"><strong>Documents</strong></div>
-                <div class="col-md-8"><ul>
-                  {% for document in event.documents %}
-                    <li><a href="{{document.url}}">{{document.filename}}</a></li>
-                  {% endfor %}
-                </ul></div>
-                <div class="col-md-4"><strong>Début</strong></div>
-                <div class="col-md-8"><p>{{ event.start }}</p></div>
-                <div class="col-md-4"><strong>Fin</strong></div>
-                <div class="col-md-8"><p>{{ event.end }}</p></div>
-                <hr>
-                <div class="col-md-4"><strong>Informations</strong></div>
-                <div class="col-md-8"><p>{{ event.informations|nl2br }}</p></div>
-            </div>
-            <h2>Effectifs</h2>
-            <table class="table">
-              <tr class="table-header">
-                <th>Tp 1</th>
-                <th>Tp 2</th>
-                <th>Sx</th>
-                <th>Tb</th>
-                <th>B</th>
-                <th>P</th>
-                <th>V</th>
-                <th>Absents</th>
-                <th>Non-répondu?</th>
-              </tr>
-              <tr>
-                <td class="b-l">
-                    <ul>
-                    {% for musicien in event.effectifs['Trumpet I'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                    </td>
-                    <td>
-                    <ul>
-                    {% for musicien in event.effectifs['Trumpet II'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                    {% for musicien in event.effectifs['Saxophone alto'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    {% for musicien in event.effectifs['Saxophone tenor'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    {% for musicien in event.effectifs['Saxophone barython'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                    {% for musicien in event.effectifs['Trombone'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                    {% for musicien in event.effectifs['Sousaphone'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                    {% for musicien in event.effectifs['Percu'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                    {% for musicien in event.effectifs['MC'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td class="b-l">
-                    <ul>
-                    {% for musicien in event.effectifs['Absents'] %}
-                      <li>{{musicien.Nom | split(' ')[0]}}</li>
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td class="b-l-light">
-                      {% for musicien in event.nonRepondu %}
-                        <li>{{musicien | split(' ')[0]}}</li>
-                      {% endfor %}
-                  </td>
-              </tr>
-            </table>
-            
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-12">
+            <h1>
+              <h1>{{ event.title }}</h1>
+            </h1>
           </div>
+            <div class="col-md-4"><strong>Ville</strong></div>
+            <div class="col-md-8"><p>{{ event.city }}</p></div>
+            {% if event.address %}
+              <div class="col-md-4"><strong>Adresse</strong></div>
+              <div class="col-md-8"><p>{{ event.address }}</p></div>
+            {% endif %}
+            {% if event.documents %}
+              <div class="col-md-4"><strong>Documents</strong></div>
+              <div class="col-md-8"><ul>
+                {% for document in event.documents %}
+                  <li><a href="{{document.url}}">{{document.filename}}</a></li>
+                {% endfor %}
+              </ul></div>
+            {% endif %}
+            <div class="col-md-4"><strong>Début</strong></div>
+            <div class="col-md-8"><p>{{ event.start }}</p></div>
+            <div class="col-md-4"><strong>Fin</strong></div>
+            <div class="col-md-8"><p>{{ event.end }}</p></div>
+            {% if event.informations %}
+              <div class="col-md-4"><strong>Informations</strong></div>
+              <div class="col-md-8"><p>{{ event.informations|nl2br }}</p></div>
+            {% endif %}
+        </div>
+        <hr>
+        <h2>Effectifs</h2>
+        <table class="table">
+          <tr class="table-header">
+            <th>Tp 1</th>
+            <th>Tp 2</th>
+            <th>Sx</th>
+            <th>Tb</th>
+            <th>B</th>
+            <th>P</th>
+            <th>V</th>
+            <th>Absents</th>
+            <th>Non-répondu?</th>
+          </tr>
+          <tr>
+            <td class="b-l">
+                <ul>
+                {% for musicien in event.effectifs['Trumpet I'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+                </td>
+                <td>
+                <ul>
+                {% for musicien in event.effectifs['Trumpet II'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                {% for musicien in event.effectifs['Saxophone alto'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                {% for musicien in event.effectifs['Saxophone tenor'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                {% for musicien in event.effectifs['Saxophone barython'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                {% for musicien in event.effectifs['Trombone'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                {% for musicien in event.effectifs['Sousaphone'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                {% for musicien in event.effectifs['Percu'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                {% for musicien in event.effectifs['MC'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td class="b-l">
+                <ul>
+                {% for musicien in event.effectifs['Absents'] %}
+                  <li>{{musicien.Nom | split(' ')[0]}}</li>
+                {% endfor %}
+                </ul>
+              </td>
+              <td class="b-l-light">
+                  {% for musicien in event.nonRepondu %}
+                    <li>{{musicien | split(' ')[0]}}</li>
+                  {% endfor %}
+              </td>
+          </tr>
+        </table>
       </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-12">
+        <h2>Mailing</h2>
+        {% set mails = [] %}
+        {% for key, registre in event.effectifs %}
+          {% if key != "Absents" %}
+            {% for musicien in registre %}
+              {% set mails = mails|merge([musicien.Mail]) %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        
+        <textarea height="4" class="control-form d-block w-100" disabled onclick="this.select()">{% for mail in mails %}{{ mail }}{{ loop.last ? '' : ', ' }}{% endfor %}</textarea>
+      </div>
+    </div>
   </div>
 </body>
 

@@ -264,6 +264,7 @@ app.get('/concerts/:concert_id', async function (req, res) {
         if (musicien.id === musicienId) {
           effectifs[registre][musicienId] = [];
           effectifs[registre][musicienId]['Nom'] = musicien.get('Nom');
+          effectifs[registre][musicienId]['Mail'] = musicien.get('E-Mail');
           delete nonRepondu[musicien.id];
         }
       });
