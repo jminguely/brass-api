@@ -265,6 +265,7 @@ app.get('/concerts/:concert_id', async function (req, res) {
           effectifs[registre][musicienId] = [];
           effectifs[registre][musicienId]['Nom'] = musicien.get('Nom');
           effectifs[registre][musicienId]['Mail'] = musicien.get('E-Mail');
+          effectifs[registre][musicienId]['Regime'] = musicien.get('Régime');
           delete nonRepondu[musicien.id];
         }
       });
@@ -282,6 +283,7 @@ app.get('/concerts/:concert_id', async function (req, res) {
     cachet:       concert.get('Cachet'),
     documents:    concert.get('Feuille de route'),
     informations: concert.get('Informations'),
+    commentaires: concert.get('Commentaires internes'),
     start:        moment(concert.get('Date check-in')).format('LLLL'),
     end:          moment(concert.get('Date fin')).format('LLLL'),
     effectifs:    effectifs,
