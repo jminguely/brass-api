@@ -53,6 +53,10 @@
               <div class="col-md-6 text-right"><strong>Informations</strong></div>
               <div class="col-md-6"><p>{{ event.informations|nl2br }}</p></div>
             {% endif %}
+            {% if event.informations %}
+              <div class="col-md-6 text-right"><strong>Commentaires internes</strong></div>
+              <div class="col-md-6"><p>{{ event.commentaires|nl2br }}</p></div>
+            {% endif %}
         </div>
         <hr>
         <h3>Effectifs</h3>
