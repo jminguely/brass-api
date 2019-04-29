@@ -228,6 +228,74 @@ app.get('/concerts', async function (req, res) {
 
   res.render('concerts.html.twig', {
     events : events,
+    layout : 'futur'
+  });
+})
+
+app.get('/concerts/past', async function (req, res) {
+
+  const musiciens = await base('Musiciens').select(
+    {
+      filterByFormula: `OR(
+        Statut = 'Remplaçant',
+        Statut = 'Titulaire'
+      )
+    `
+    }
+  ).firstPage();
+  
+  let events = [];
+
+  const concerts = await base('Concerts').select(
+    {
+      filterByFormula: `Past = 'Past'`,
+      sort: [{field: 'Date check-in', direction: 'desc'}]
+    }
+  ).firstPage();
+
+  concerts.forEach(concert => {
+    let effectifsForDuplicate = [];
+    let effectifs = {};
+    let event = {};
+    Object.keys(concert.fields).forEach(key => {
+      if (key.includes('[Musiciens]')) {
+        const registre = key.slice(0, -12);
+        effectifs[registre] = {};
+        musiciens.forEach(musicien => {
+          concert.fields[key].forEach(async musicienId => {
+            if (musicien.id === musicienId) {
+              effectifs[registre][musicienId] = [];
+              effectifs[registre][musicienId]['Nom'] = musicien.get('Nom');
+              effectifs[registre][musicienId]['Id'] = musicien.id;
+
+              if (!effectifsForDuplicate.includes(musicienId)){
+                effectifsForDuplicate.push(musicienId);
+              } else {
+                effectifs[registre][musicienId]['Duplicate'] = true;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    event = {
+      id:           concert.id,
+      statut:       concert.get('Statut'),
+      title:        concert.get('Titre'),
+      type:         concert.get('Type'),
+      city:         concert.get('Ville'),
+      informations: concert.get('Informations'),
+      start:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
+      time:         moment(concert.get('Date check-in')).format('HH:mm'),
+      effectifs:    effectifs
+    };
+    events.push(event);
+  });
+
+  res.render('concerts.html.twig', {
+    events : events,
+    layout : 'past'
   });
 })
 

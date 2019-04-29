@@ -56,7 +56,9 @@
               <tr class="table-header">
                 <th>Date</th>
                 <th>Titre/Ville</th>
-                <th>Statut</th>
+                {% if layout == 'futur' %}
+                  <th>Statut</th>
+                {% endif %}
                 <th class="b-l">Tp</th>
                 <th>Sx</th>
                 <th>Sx bari</th>
@@ -64,8 +66,12 @@
                 <th>B</th>
                 <th>P</th>
                 <th>V</th>
-                <th class="b-l">Absents</th>
-                <th>Attente de réponse</th>
+                {% if layout == 'futur' %}
+                  <th class="b-l">Absents</th>
+                {% endif %}
+                {% if layout == 'futur' %}
+                  <th>Attente de réponse</th>
+                {% endif %}
               </tr>
               {% for event in events %}
                 <tr class="clickable-row {{ event.statut == 'Annulé' ? 'bg-warning' : '' }}" onclick="window.location='/concerts/{{ event.id }}';">
@@ -76,9 +82,11 @@
                     {{ event.title }}<br />{{ event.city }}<br /><br />
                     <a href="/concerts/{{ event.id }}" class="btn btn-danger btn-sm">Plus d'infos !</a>
                   </td>
-                  <td>
-                    {{ event.statut }}
-                  </td>
+                  {% if layout == 'futur' %}
+                    <td>
+                      {{ event.statut }}
+                    </td>
+                  {% endif %}
                   <td class="b-l">
                     <ul>
                     {% for musicien in event.effectifs['Trumpet I'] %}
@@ -134,18 +142,22 @@
                     {% endfor %}
                     </ul>
                   </td>
-                  <td class="b-l">
-                    <ul>
-                    {% for musicien in event.effectifs['Absents'] %}
-                      {% include "parts/musician.html.twig" with {musicien: musicien} %}
-                    {% endfor %}
-                    </ul>
-                  </td>
-                  <td class="b-l-light">
+                  {% if layout == 'futur' %}
+                    <td class="b-l">
+                      <ul>
+                      {% for musicien in event.effectifs['Absents'] %}
+                        {% include "parts/musician.html.twig" with {musicien: musicien} %}
+                      {% endfor %}
+                      </ul>
+                    </td>
+                  {% endif %}
+                  {% if layout == 'futur' %}
+                    <td class="b-l-light">
                       {% for musicien in event.nonRepondu %}
                         <li>{{musicien | split(' ')[0]}}</li>
                       {% endfor %}
-                  </td>
+                    </td>
+                  {% endif %}
                 </tr>
               {% endfor %}
             </table>
