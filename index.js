@@ -101,7 +101,6 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
 
   const concerts = await base('Concerts').select(
     {
-      filterByFormula: `Past = 'Future'`,
       sort: [{field: 'Date check-in', direction: 'asc'}]
     }
   ).firstPage();
@@ -112,6 +111,7 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
       id: concert.id,
       date: moment(concert.get('Date check-in')).format("DD.MM.YY"),
       titre: concert.get("Titre"),
+      past: concert.get("Past"),
       statut: "???",
     });
   });

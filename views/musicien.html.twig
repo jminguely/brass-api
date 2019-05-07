@@ -68,19 +68,43 @@
                 <th>Concerts</th>
                 <td>
                   <table class="table table-concert">
-                   {% for gig in musicien.gigs %}
+                   {% for gig in musicien.gigs if gig.past == "Future" %}
                    <tr class="clickable-row" onclick="window.location='/concerts/{{ gig.id }}';">
                     <td>{{ gig.date }} <strong>{{ gig.titre}}</strong></td>
                     <td>
                       {% if gig.statut == "???"  %}
-                        <strong class="text-danger">
+                        <span class="text-danger">
                       {% elseif gig.statut == "Présent" %}
-                        <strong class="text-success">
+                        <span class="text-success">
                       {% else %}
-                        <strong class="text-warning">
+                        <span class="text-warning">
                       {% endif %}
                         {{ gig.statut }}
-                      </strong>
+                      </span>
+                    </td>
+                   </tr>
+                  {% endfor %}
+
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <th>Concerts passé</th>
+                <td>
+                  <table class="table table-concert">
+                   {% for gig in musicien.gigs if gig.past == "Past" %}
+                   <tr class="clickable-row" onclick="window.location='/concerts/{{ gig.id }}';">
+                    <td>{{ gig.date }} <strong>{{ gig.titre}}</strong></td>
+                    <td>
+                      {% if gig.statut == "Présent" %}
+                        <span class="text-success">
+                          Présent
+                        </span>
+                      {% else %}
+                        <span>
+                          Non-présent
+                        </span>
+                      {% endif %}
                     </td>
                    </tr>
                   {% endfor %}
