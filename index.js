@@ -234,15 +234,7 @@ app.get('/concerts', async function (req, res) {
 
 app.get('/concerts/past', async function (req, res) {
 
-  const musiciens = await base('Musiciens').select(
-    {
-      filterByFormula: `OR(
-        Statut = 'Remplaçant',
-        Statut = 'Titulaire'
-      )
-    `
-    }
-  ).firstPage();
+  const musiciens = await base('Musiciens').select().firstPage();
   
   let events = [];
 
