@@ -22,9 +22,9 @@
           </tr>
           <tr>
             <th>Type d'engagement</th>
-            <th>Nombre de service</th>
-            <th>Prix du service</th>
-            <th>Montant total</th>
+            <th>Nombre</th>
+            <th>Montant</th>
+            <th>Prix total</th>
           </tr>
           <tr>
             <td><strong>Concerts</strong></td>
@@ -39,10 +39,16 @@
             <td><strong>CHF {{ salaire.qtyRepetitions * salaire.prixRepetition }}.-</strong></td>
           </tr>
           <tr>
+            <td><strong>Défraiement</strong></td>
+            <td></td>
+            <td>CHF {{ salaire.defraiement }}</td>
+            <td><strong>CHF {{ salaire.defraiement }}.-</strong></td>
+          </tr>
+          <tr>
             <td></td>
             <td></td>
             <td><strong>Total</strong></td>
-            <td><strong>CHF {{ salaire.qtyConcerts * salaire.prixConcert + salaire.qtyRepetitions * salaire.prixRepetition }}.-</strong></td>
+            <td><strong>CHF {{ salaire.qtyConcerts * salaire.prixConcert + salaire.qtyRepetitions * salaire.prixRepetition + salaire.defraiement }}.-</strong></td>
           </tr>
         </table>
       </div>

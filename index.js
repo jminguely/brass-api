@@ -371,6 +371,7 @@ app.get('/salaires/:salaire_id', function (req, res) {
 
     let data = {
       name:           salaire.get('Name'),
+      defraiement:    salaire.get('Défraiement'),
       qtyConcerts:    salaire.get('Quantité de concerts'),
       qtyRepetitions: salaire.get('Quantité de répétitions'),
       prixConcert:    salaire.get('Prix concert'),
