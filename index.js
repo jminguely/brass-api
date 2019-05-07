@@ -370,10 +370,13 @@ app.get('/salaires/:salaire_id', function (req, res) {
     salaire = salaires[0];
 
     let data = {
-      name:         salaire.get('Name'),
-      nombre:       salaire.get('Nombre d\'engagmenet'),
-      montant:      salaire.get('Montant'),
-      musicien:     {}
+      name:           salaire.get('Name'),
+      qtyConcerts:    salaire.get('Quantité de concerts'),
+      qtyRepetitions: salaire.get('Quantité de répétitions'),
+      prixConcert:    salaire.get('Prix concert'),
+      prixRepetition: salaire.get('Prix répétition'),
+      montant:        salaire.get('Montant'),
+      musicien:       {}
     };
 
     base('Musiciens').select({filterByFormula: `RECORD_ID() = '${salaire.get('Musicien')[0]}'`}).eachPage((musiciens) => {

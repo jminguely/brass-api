@@ -21,14 +21,28 @@
             <th colspan="3"><h5>{{ salaire.name }}</h5></th>
           </tr>
           <tr>
-            <th>Nombre d'engagements</th>
+            <th>Type d'engagement</th>
+            <th>Nombre de service</th>
             <th>Prix du service</th>
             <th>Montant total</th>
           </tr>
           <tr>
-            <td>{{ salaire.nombre }}</td>
-            <td>CHF 50.-</td>
-            <td>CHF {{ salaire.montant }}.-</td>
+            <td><strong>Concerts</strong></td>
+            <td>{{ salaire.qtyConcerts }}</td>
+            <td>CHF {{ salaire.prixConcert }}</td>
+            <td><strong>CHF {{ salaire.qtyConcerts * salaire.prixConcert }}.-</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Répétitions</strong></td>
+            <td>{{ salaire.qtyRepetitions }}</td>
+            <td>CHF {{ salaire.prixRepetition }}</td>
+            <td><strong>CHF {{ salaire.qtyRepetitions * salaire.prixRepetition }}.-</strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td><strong>Total</strong></td>
+            <td><strong>CHF {{ salaire.qtyConcerts * salaire.prixConcert + salaire.qtyRepetitions * salaire.prixRepetition }}.-</strong></td>
           </tr>
         </table>
       </div>
