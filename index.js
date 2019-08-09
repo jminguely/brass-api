@@ -33,8 +33,8 @@ app.get('/calendar', function (req, res) {
       let event = {
         title:              `BMF - ${record.get('Titre') || record.get('Type')}`,
         location:           record.get('Ville'),
-        description:        `${record.get('Export')}\n\n${record.get('Informations') || ""}`,
-        url:                record.get('Export'),
+        description:        `${record.get('API')}\n\n${record.get('Informations') || ""}`,
+        url:                record.get('API'),
       }
   
       if (record.get('Date fin')) {
