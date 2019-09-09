@@ -362,7 +362,8 @@ app.get('/salaires/:salaire_id', function (req, res) {
     salaire = salaires[0];
 
     let data = {
-      name:           salaire.get('Name'),
+      dateDebut:      moment(salaire.get('Date début')).format("DD.MM.YY"),
+      dateFin:        moment(salaire.get('Date fin')).format("DD.MM.YY"),
       defraiement:    salaire.get('Défraiement'),
       qtyConcerts:    salaire.get('Quantité de concerts'),
       qtyRepetitions: salaire.get('Quantité de répétitions'),
