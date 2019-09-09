@@ -2,9 +2,10 @@ const express = require('express')
 const app = express();
 const Airtable = require('airtable');
 const dotenv = require('dotenv').load();
-const Twig = require("twig");
 const ics = require('ics');
 const moment = require('moment');
+const slugify = require('slugify');
+
 moment.locale("fr_FR");
 
 Airtable.configure({
@@ -362,6 +363,7 @@ app.get('/salaires/:salaire_id', function (req, res) {
     salaire = salaires[0];
 
     let data = {
+      name:           slugify(salaire.get('Name')),
       dateDebut:      moment(salaire.get('Date début')).format("DD.MM.YY"),
       dateFin:        moment(salaire.get('Date fin')).format("DD.MM.YY"),
       defraiement:    salaire.get('Défraiement'),
