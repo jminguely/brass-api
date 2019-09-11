@@ -1,170 +1,174 @@
 <!doctype html>
 <html lang="fr_CH" class="h-100">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Brassmaster Flash API</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <style>
-    .table-header th {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-top: 0;
-      background-color: #e61e41;
-      color: white;
-    }
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Brassmaster Flash API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <style>
+      .table-header th {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-top: 0;
+        background-color: #e61e41;
+        color: white;
+      }
 
-    .table td {
-      font-size: 0.75em;
-    }
+      .table td {
+        font-size: 0.75em;
+      }
 
-    .b-l {
-      border-left: 2px solid #e61e41;
-    }
+      .b-l {
+        border-left: 2px solid #e61e41;
+      }
 
-    .b-l-light {
-      border-left: 1px solid #eee;
-    }
+      .b-l-light {
+        border-left: 1px solid #eee;
+      }
 
-    .clickable-row:hover {
-      cursor: pointer;
-      background: #eee;
-    }
+      .clickable-row:hover {
+        cursor: pointer;
+        background: #eee;
+      }
 
-    ul {
-      padding: 0 0 0 1em;
-    }
+      ul {
+        padding: 0 0 0 1em;
+      }
 
-    .btn-sm {
-      font-size: 0.8em;
-    }
-  </style>
-</head>
+      .btn-sm {
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="container-fluid my-4">
-    <div class="row">
-      <div class="col-2"><a href="/" class="btn btn-danger">←</a></div>
-      <div class="col-8 text-center"><h1>Brassmaster Flash: Concerts</h1></div>
-    </div>
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table">
-              <tr class="table-header">
-                <th>Date</th>
-                <th>Titre/Ville</th>
+  <body>
+    <div class="container-fluid my-4">
+      <div class="row">
+        <div class="col-2">
+          <a href="/" class="btn btn-danger">←</a>
+        </div>
+        <div class="col-8 text-center">
+          <h1>Concerts</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table">
+            <tr class="table-header">
+              <th>Date</th>
+              <th>Titre/Ville</th>
+              {% if layout == 'futur' %}
+                <th>Statut</th>
+              {% endif %}
+              <th class="b-l">Tp</th>
+              <th>Sx</th>
+              <th>Sx bari</th>
+              <th>Tb</th>
+              <th>B</th>
+              <th>P</th>
+              <th>V</th>
+              {% if layout == 'futur' %}
+                <th class="b-l">Absents</th>
+              {% endif %}
+              {% if layout == 'futur' %}
+                <th>Attente de réponse</th>
+              {% endif %}
+            </tr>
+            {% for event in events %}
+              <tr class="clickable-row {{ event.statut == 'Annulé' ? 'bg-warning' : '' }}" onclick="window.location='/concerts/{{ event.id }}';">
+                <td>
+                  {{ event.start }}<br/>{{ event.time }}
+                </td>
+                <td class="b-l-light">
+                  {{ event.title }}<br/>{{ event.city }}<br/><br/>
+                  <a href="/concerts/{{ event.id }}" class="btn btn-danger btn-sm">Plus d'infos !</a>
+                </td>
                 {% if layout == 'futur' %}
-                  <th>Statut</th>
-                {% endif %}
-                <th class="b-l">Tp</th>
-                <th>Sx</th>
-                <th>Sx bari</th>
-                <th>Tb</th>
-                <th>B</th>
-                <th>P</th>
-                <th>V</th>
-                {% if layout == 'futur' %}
-                  <th class="b-l">Absents</th>
-                {% endif %}
-                {% if layout == 'futur' %}
-                  <th>Attente de réponse</th>
-                {% endif %}
-              </tr>
-              {% for event in events %}
-                <tr class="clickable-row {{ event.statut == 'Annulé' ? 'bg-warning' : '' }}" onclick="window.location='/concerts/{{ event.id }}';">
                   <td>
-                  {{ event.start }}<br />{{ event.time }}
+                    {{ event.statut }}
                   </td>
-                  <td class="b-l-light">
-                    {{ event.title }}<br />{{ event.city }}<br /><br />
-                    <a href="/concerts/{{ event.id }}" class="btn btn-danger btn-sm">Plus d'infos !</a>
-                  </td>
-                  {% if layout == 'futur' %}
-                    <td>
-                      {{ event.statut }}
-                    </td>
-                  {% endif %}
-                  <td class="b-l">
-                    <ul>
+                {% endif %}
+                <td class="b-l">
+                  <ul>
                     {% for musicien in event.effectifs['Trumpet I'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     {% for musicien in event.effectifs['Trumpet II'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
                     {% for musicien in event.effectifs['Saxophone alto'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
                     {% for musicien in event.effectifs['Saxophone tenor'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
                     {% for musicien in event.effectifs['Saxophone barython'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
                     {% for musicien in event.effectifs['Trombone'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
                     {% for musicien in event.effectifs['Sousaphone'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
                     {% for musicien in event.effectifs['Percu'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
                     {% for musicien in event.effectifs['MC'] %}
                       {% include "parts/musician.html.twig" with {musicien: musicien} %}
                     {% endfor %}
-                    </ul>
-                  </td>
-                  {% if layout == 'futur' %}
-                    <td class="b-l">
-                      <ul>
+                  </ul>
+                </td>
+                {% if layout == 'futur' %}
+                  <td class="b-l">
+                    <ul>
                       {% for musicien in event.effectifs['Absents'] %}
                         {% include "parts/musician.html.twig" with {musicien: musicien} %}
                       {% endfor %}
-                      </ul>
-                    </td>
-                  {% endif %}
-                  {% if layout == 'futur' %}
-                    <td class="b-l-light">
-                      {% for musicien in event.nonRepondu %}
-                        <li>{{musicien | split(' ')[0]}}</li>
-                      {% endfor %}
-                    </td>
-                  {% endif %}
-                </tr>
-              {% endfor %}
-            </table>
-            
-          </div>
+                    </ul>
+                  </td>
+                {% endif %}
+                {% if layout == 'futur' %}
+                  <td class="b-l-light">
+                    {% for musicien in event.nonRepondu %}
+                      <li>{{musicien | split(' ')[0]}}</li>
+                    {% endfor %}
+                  </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+          </table>
+
+        </div>
       </div>
-  </div>
-</body>
+    </div>
+  </body>
 
 </html>

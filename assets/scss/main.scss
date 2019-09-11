@@ -1,0 +1,11 @@
+@import "materialize";
+@import "../../node_modules/tablesaw/dist/tablesaw";
+
+.tablesaw tbody tr td:first-child {
+  padding-left: 0.5em;
+}
+
+.filter {
+  display: flex;
+  flex-flow: column wrap;
+}

@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express();
 const Airtable = require('airtable');
-const dotenv = require('dotenv').load();
+const dotenv = require('dotenv');
 const ics = require('ics');
 const moment = require('moment');
 const slugify = require('slugify');
+
+dotenv.load();
 
 moment.locale("fr_FR");
 
@@ -14,6 +16,8 @@ Airtable.configure({
 });
 
 const base = Airtable.base('appOvGQqOefkMpE9o');
+
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   res.render('home.html.twig');
@@ -64,8 +68,7 @@ app.get('/calendar', function (req, res) {
 app.get('/musiciens', async function (req, res) {
   const musiciens = await base('Musiciens').select(
     {
-      view: 'Full',
-      filterByFormula: `Statut = 'Titulaire'`
+      view: 'Full'
     }
   ).firstPage();
   
@@ -80,6 +83,7 @@ app.get('/musiciens', async function (req, res) {
       nom:          musicien.get('Nom'),
       instruments:  musicien.get('Instrument(s)'),
       phone:        musicien.get('Telephone'),
+      statut:        musicien.get('Statut'),
       email:        musicien.get('E-Mail'),      
     };
     effectifs.push(person);
