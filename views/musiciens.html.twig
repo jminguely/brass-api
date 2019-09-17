@@ -1,48 +1,61 @@
 {% extends "parts/base.html.twig" %}
 
 {% block content %}
-  <div class="row">
-    <div class="input-field col s4">
-      <select multiple data-filter="statut">
-        <option value="" disabled>Sélectionnez le statut</option>
-        <option value="Titulaire">Titulaire</option>
-        <option value="Actif">Actif</option>
-        <option value="Remplaçant">Remplaçant</option>
-        <option value="Passif">Passif</option>
-      </select>
-      <label>Statut</label>
-    </div>
-
-  </div>
-  <table data-tablesaw-sortable class="tablesaw striped">
-    <thead class="table-header black white-text">
-      <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
-      <th data-tablesaw-sortable-col>Statut</th>
-      <th data-tablesaw-sortable-col>Instruments</th>
-      <th data-tablesaw-sortable-col>Téléphone</th>
-      <th data-tablesaw-sortable-col>E-Mail</th>
-      <th></th>
-    </thead>
-    {% for musicien in musiciens %}
-      <tr class="clickable-row" data-statut="{{ musicien.statut }}">
-        <td>{{ musicien.nom }}</td>
-        <td>{{ musicien.statut }}</td>
-        <td>
-          {% for instrument in musicien.instruments %}
-            {{ instrument}}<br/>
+  {# <pre>
+                          {{ dump(instruments) }}
+                        </pre> #}
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="input-field col s4">
+        <select data-filter="statut">
+          <option value=""></option>
+          {% for statut in statuts %}
+            <option value="{{statut}}">{{statut}}</option>
           {% endfor %}
-        </td>
-        <td>
-          <a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a>
-        </td>
-        <td>
-          <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
-        </td>
-        <td>
-          <a class="waves-effect waves-light btn" href="/musiciens/{{ musicien.id }}">Détails</a>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
+        </select>
+        <label>Statut</label>
+      </div>
+
+      <div class="input-field col s4">
+        <select data-filter="instrument">
+          <option value=""></option>
+          {% for instrument in instruments %}
+            <option value="{{instrument}}">{{instrument}}</option>
+          {% endfor %}
+        </select>
+        <label>Instrument</label>
+      </div>
+
+    </div>
+    <table data-tablesaw-sortable class="table tablesaw striped">
+      <thead class="table-header">
+        <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
+        <th data-tablesaw-sortable-col>Statut</th>
+        <th data-tablesaw-sortable-col>Instr.</th>
+        <th data-tablesaw-sortable-col>Téléphone</th>
+        <th data-tablesaw-sortable-col>E-Mail</th>
+        <th></th>
+      </thead>
+      {% for musicien in musiciens %}
+        <tr class="list-filterable" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
+          <td>{{ musicien.nom }}</td>
+          <td>{{ musicien.statut }}</td>
+          <td>
+            {{ musicien.instrument }}<br/>
+          </td>
+          <td>
+            <a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a>
+          </td>
+          <td>
+            <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
+          </td>
+          <td>
+            <a class="waves-effect waves-light btn btn-small" href="/musiciens/{{ musicien.id }}">Détails</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
 
 {% endblock %}

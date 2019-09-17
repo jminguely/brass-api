@@ -1,30 +1,43 @@
 export default () => {
-  var elems = document.querySelectorAll('select');
-  var instances = M.FormSelect.init(elems);
+  const elems = document.querySelectorAll('select');
+  const instances = M.FormSelect.init(elems);
+  const list = document.querySelectorAll('.list-filterable');
+  const filters = {};
   
   instances.forEach((instance) => {
     instance.el.addEventListener('change', function(event) {
-      
-      const values = instance.getSelectedValues();
+      const value = event.target.value;
 
-      console.log(values);
-      
-      if (values.length > 0) {
-        const list = document.querySelectorAll(`[data-${instance.el.dataset.filter}]`);
-        for (var i = 0; i < list.length; ++i) {
-          list[i].classList.add('hide');
-          instance.getSelectedValues().forEach(function(filterValue) {
-            if (filterValue == list[i].dataset[instance.el.dataset.filter]) {
-              list[i].classList.remove('hide');
-            }
-          });
-        }
+      if (value != "") {
+        filters[instance.el.dataset.filter] = value;
       } else {
-        const list = document.querySelectorAll(`[data-${instance.el.dataset.filter}]`);
+        delete filters[instance.el.dataset.filter];
+      }
+
+      if (Object.keys(filters).length === 0 && filters.constructor === Object) {
         for (var i = 0; i < list.length; ++i) {
           list[i].classList.remove('hide');
         }
+      } else {
+        for (var i = 0; i < list.length; ++i) {
+          let displayStatus = undefined;
+          for (const filterKey in filters) {
+            if (displayStatus !== false) {
+              if (filters[filterKey] == list[i].dataset[filterKey]){
+                displayStatus = true
+              } else {
+                displayStatus = false
+              }
+            }
+
+          }
+
+          if (displayStatus) list[i].classList.remove('hide');
+          else list[i].classList.add('hide');
+        }
       }
+      
+      
     });
   });
 

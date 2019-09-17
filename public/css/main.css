@@ -3885,12 +3885,12 @@ small {
     .btn-floating.btn-large i {
       line-height: 56px; }
   .btn-floating.btn-small {
-    width: 32.4px;
-    height: 32.4px; }
+    width: 25.2px;
+    height: 25.2px; }
     .btn-floating.btn-small.halfway-fab {
-      bottom: -16.2px; }
+      bottom: -12.6px; }
     .btn-floating.btn-small i {
-      line-height: 32.4px; }
+      line-height: 25.2px; }
   .btn-floating.halfway-fab {
     position: absolute;
     right: 24px;
@@ -4026,11 +4026,11 @@ button.btn-floating {
     font-size: 1.6rem; }
 
 .btn-small {
-  height: 32.4px;
-  line-height: 32.4px;
-  font-size: 13px; }
+  height: 25.2px;
+  line-height: 25.2px;
+  font-size: 11px; }
   .btn-small i {
-    font-size: 1.2rem; }
+    font-size: 1rem; }
 
 .btn-block {
   display: block; }
@@ -7164,8 +7164,24 @@ a.tablesaw-btn {
   cursor: default;
   pointer-events: none; }
 
+.site-header {
+  margin-bottom: 2em; }
+
+.site-main {
+  margin-bottom: 4em; }
+
+.table tbody td {
+  font-size: 0.8em; }
+
 .tablesaw tbody tr td:first-child {
   padding-left: 0.5em; }
+
+.tablesaw-sortable-btn {
+  padding-top: 1em;
+  padding-bottom: 1em; }
+
+.tablesaw-sortable-btn:focus {
+  background: inherit !important; }
 
 .filter {
   display: flex;

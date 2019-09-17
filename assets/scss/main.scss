@@ -1,8 +1,31 @@
 @import "materialize";
 @import "../../node_modules/tablesaw/dist/tablesaw";
 
+.site-header {
+  margin-bottom: 2em;
+}
+
+.site-main {
+  margin-bottom: 4em;
+}
+
+.table {
+  tbody td {
+    font-size: 0.8em;
+  }
+}
+
 .tablesaw tbody tr td:first-child {
   padding-left: 0.5em;
+}
+
+.tablesaw-sortable-btn {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.tablesaw-sortable-btn:focus {
+  background: inherit !important;
 }
 
 .filter {

@@ -12,25 +12,26 @@
   <body>
     <nav>
       <div class="row">
-        <div class="col s12">
-          <div class="nav-wrapper">
-            <a href="#" class="brand-logo left">Brassmaster Flash</a>
-            <ul id="nav-mobile" class="right">
-              <li>
-                <a href="/musiciens">Musiciens</a>
-              </li>
-              <li>
-                <a href="/concerts">Agenda</a>
-              </li>
-            </ul>
+        <div class="col s12 site-header">
+          <div class="container">
+            <div class="nav-wrapper">
+              <a href="#" class="brand-logo left">Brassmaster Flash</a>
+              <ul id="nav-mobile" class="right">
+                <li>
+                  <a href="/musiciens">Musiciens</a>
+                </li>
+                <li>
+                  <a href="/concerts">Agenda</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </nav>
-    <main>
-      {% block content %}{% endblock %}
-    </main>
+    <main class="site-main"> {% block content %}{% endblock %}
+      </main>
 
-  </body>
+    </body>
 
-</html>
+  </html>

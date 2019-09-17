@@ -73,24 +73,32 @@ app.get('/musiciens', async function (req, res) {
   ).firstPage();
   
   const effectifs = [];
+  const instruments = [];
+  const statuts = [];
 
   musiciens.forEach(musicien => {
-    let events = {};
     let person = {};
 
     person = {
       id:           musicien.id,
       nom:          musicien.get('Nom'),
-      instruments:  musicien.get('Instrument'),
+      instrument:  musicien.get('Instrument'),
       phone:        musicien.get('Telephone'),
-      statut:        musicien.get('Statut'),
-      email:        musicien.get('E-Mail'),      
+      statut:       musicien.get('Statut'),
+      email:        musicien.get('E-Mail'),
     };
+
     effectifs.push(person);
+
+    if (instruments.indexOf(musicien.get('Instrument')) === -1) instruments.push(musicien.get('Instrument'));
+    if (statuts.indexOf(musicien.get('Statut')) === -1) statuts.push(musicien.get('Statut'));
+    
   });
 
   res.render('musiciens.html.twig', {
     musiciens : effectifs,
+    instruments: instruments,
+    statuts: statuts,
   });
 })
 
