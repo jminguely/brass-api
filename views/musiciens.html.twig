@@ -2,8 +2,8 @@
 
 {% block content %}
   {# <pre>
-                          {{ dump(instruments) }}
-                        </pre> #}
+                                    {{ dump(instruments) }}
+                                  </pre> #}
   <div class="container">
     <br>
     <div class="row">
@@ -39,7 +39,9 @@
       </thead>
       {% for musicien in musiciens %}
         <tr class="list-filterable" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
-          <td>{{ musicien.nom }}</td>
+          <td>
+            <a href="/musiciens/{{ musicien.id }}">{{ musicien.nom }}</a>
+          </td>
           <td>{{ musicien.statut }}</td>
           <td>
             {{ musicien.instrument }}<br/>
@@ -51,7 +53,9 @@
             <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
           </td>
           <td>
-            <a class="waves-effect waves-light btn btn-small" href="/musiciens/{{ musicien.id }}">Détails</a>
+            <a class="waves-effect waves-light btn-floating btn-small" href="/musiciens/{{ musicien.id }}">
+              <i class="material-icons left">view_headline</i>
+            </a>
           </td>
         </tr>
       {% endfor %}
