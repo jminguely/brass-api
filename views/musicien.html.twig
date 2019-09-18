@@ -27,21 +27,33 @@
         </td>
       </tr>
     </table>
+    <h4>Concerts</h4>
+    <div class="row mb-0">
+      <div class="input-field col s4">
+        <input id="date_start" type="text" class="datepicker" data-filter="start">
+        <label for="date_start">Début</label>
+      </div>
+    </div>
     <table data-tablesaw-sortable class="table tablesaw striped">
       <thead class="table-header">
         <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
         <th data-tablesaw-sortable-col>Titre</th>
-        <th data-tablesaw-sortable-col>Statut.</th>
+        <th data-tablesaw-sortable-col>Ville</th>
+        <th data-tablesaw-sortable-col>Statut</th>
         <th></th>
       </thead>
-      <h4>Concerts</h4>
+
       {% for gig in musicien.gigs %}
-        <tr class="list-filterable">
+        <tr class="list-filterable" data-date="{{ gig.dateSortable }}">
           <td>
+            <span class="hide">{{ gig.dateSortable }}</span>
             {{ gig.date }}
           </td>
           <td>
             <a href="/concerts/{{ gig.id }}">{{ gig.titre }}</a>
+          </td>
+          <td>
+            {{ gig.ville }}
           </td>
           <td>{{ gig.statut }}</td>
           <td>

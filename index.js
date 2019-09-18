@@ -123,7 +123,9 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
     gigs.push({
       id: concert.id,
       date: moment(concert.get('Date check-in')).format("DD.MM.YY"),
+      dateSortable: moment(concert.get('Date check-in')).format("x"),
       titre: concert.get("Titre"),
+      ville: concert.get("Ville"),
       past: concert.get("Past"),
       statut: "???",
     });
