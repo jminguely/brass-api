@@ -1,9 +1,6 @@
 {% extends "parts/base.html.twig" %}
 
 {% block content %}
-  {# <pre>
-                                    {{ dump(instruments) }}
-                                  </pre> #}
   <div class="container">
     <br>
     <div class="row">
@@ -11,7 +8,7 @@
         <select data-filter="statut">
           <option value=""></option>
           {% for statut in statuts %}
-            <option value="{{statut}}">{{statut}}</option>
+            <option value="{{statut}}" {% if statut == 'Titulaire' %} selected {% endif %}>{{statut}}</option>
           {% endfor %}
         </select>
         <label>Statut</label>
