@@ -30,8 +30,12 @@
     <h4>Concerts</h4>
     <div class="row mb-0">
       <div class="input-field col s4">
-        <input id="date_start" type="text" class="datepicker" data-filter="start">
+        <input id="date_start" type="text" class="datepicker" data-filter="start" value="{{ "now"|date("d.m.Y") }}">
         <label for="date_start">Début</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="date_end" type="text" class="datepicker" data-filter="end">
+        <label for="date_end">Fin</label>
       </div>
     </div>
     <table data-tablesaw-sortable class="table tablesaw striped">

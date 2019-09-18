@@ -1,9 +1,12 @@
 export default () => {
-  console.log('date');
+
   var elems = document.querySelectorAll('.datepicker');
   var instances = M.Datepicker.init(elems, {
     autoClose: true,
     format: 'dd.mm.yyyy',
+    showClearBtn: true,
+    firstDay: 1,
+    showMonthAfterYear: true,
     i18n: {
       cancel: 'Annuler',
       clear: 'Effacer',
@@ -74,20 +77,30 @@ export default () => {
 
     if (value != "") {
       const date = `${value[1]}.${value[0]}.${value[2]}`
-      const timestamp = new Date(date).getTime();
-    
-      for (var i = 0; i < list.length; ++i) {
-        let displayStatus = undefined;
+      filters[instance.el.dataset.filter] = new Date(date).getTime();
+    } else {
+      delete filters[instance.el.dataset.filter];
+    }
   
-        if (displayStatus !== false) {
-          console.log(list[i].dataset['date'], timestamp);
-          if (list[i].dataset['date'] > timestamp){
-            displayStatus = true
-          } else {
-            displayStatus = false
+    if (Object.keys(filters).length === 0 && filters.constructor === Object) {
+      for (var i = 0; i < list.length; ++i) {
+        list[i].classList.remove('hide');
+      }
+    } else {
+      for (var i = 0; i < list.length; ++i) {
+        let displayStatus = true;
+        for (const filterKey in filters) {
+          if (filterKey === "start") {
+            if (list[i].dataset['date'] < filters[filterKey]){
+              displayStatus = false
+            }
+          } else if (filterKey === "end") {
+            if (list[i].dataset['date'] > filters[filterKey]){
+              displayStatus = false
+            }
           }
         }
-  
+
         if (displayStatus) list[i].classList.remove('hide');
         else list[i].classList.add('hide');
       }
