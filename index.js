@@ -158,7 +158,12 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
   person = {
     id:           musicien.id,
     nom:          musicien.get('Nom'),
+    statut:       musicien.get('Statut'),
     instrument:   musicien.get('Instrument'),
+    ddn:          musicien.get('DDN'),
+    adresse:      musicien.get('Adresse'),
+    regime:       musicien.get('Régime'),
+    salaires:     musicien.get('Salaires'),
     phone:        musicien.get('Telephone'),
     email:        musicien.get('E-Mail'),
     gigs:         gigs,
