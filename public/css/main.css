@@ -7186,3 +7186,14 @@ a.tablesaw-btn {
 .filter {
   display: flex;
   flex-flow: column wrap; }
+
+@media (max-width: 39.9375em) {
+  .tablesaw-stack tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4); }
+  .tablesaw-stack tbody tr td:first-child {
+    margin-top: 2em; }
+  .tablesaw-stack tbody tr td:last-child {
+    margin-bottom: 2em; } }
+
+.mb-0 {
+  margin-bottom: 0; }

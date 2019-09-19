@@ -4,7 +4,7 @@
   <div class="container">
     <br>
     <div class="row">
-      <div class="input-field col s4">
+      <div class="input-field col s6 m4">
         <select data-filter="statut">
           <option value=""></option>
           {% for statut in statuts %}
@@ -14,7 +14,7 @@
         <label>Statut</label>
       </div>
 
-      <div class="input-field col s4">
+      <div class="input-field col s6 m4">
         <select data-filter="instrument">
           <option value=""></option>
           {% for instrument in instruments %}
@@ -24,38 +24,40 @@
         <label>Instrument</label>
       </div>
     </div>
-    <table data-tablesaw-sortable class="table tablesaw striped">
-      <thead class="table-header">
-        <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
-        <th data-tablesaw-sortable-col>Statut</th>
-        <th data-tablesaw-sortable-col>Instr.</th>
-        <th data-tablesaw-sortable-col>Téléphone</th>
-        <th data-tablesaw-sortable-col>E-Mail</th>
-        <th></th>
-      </thead>
-      {% for musicien in musiciens %}
-        <tr class="list-filterable" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
-          <td>
-            <a href="/musiciens/{{ musicien.id }}">{{ musicien.nom }}</a>
-          </td>
-          <td>{{ musicien.statut }}</td>
-          <td>
-            {{ musicien.instrument }}<br/>
-          </td>
-          <td>
-            <a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a>
-          </td>
-          <td>
-            <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
-          </td>
-          <td>
-            <a class="waves-effect waves-light btn-floating btn-small" href="/musiciens/{{ musicien.id }}">
-              <i class="material-icons left">view_headline</i>
-            </a>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
+    <div class="card-panel grey lighten-2">
+      <table data-tablesaw-sortable class="table tablesaw">
+        <thead class="table-header">
+          <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Nom</th>
+          <th data-tablesaw-sortable-col>Statut</th>
+          <th data-tablesaw-sortable-col>Instr.</th>
+          <th data-tablesaw-sortable-col>Téléphone</th>
+          <th data-tablesaw-sortable-col>E-Mail</th>
+          <th></th>
+        </thead>
+        {% for musicien in musiciens %}
+          <tr class="list-filterable" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
+            <td>
+              <a href="/musiciens/{{ musicien.id }}">{{ musicien.nom }}</a>
+            </td>
+            <td>{{ musicien.statut }}</td>
+            <td>
+              {{ musicien.instrument }}<br/>
+            </td>
+            <td>
+              <a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a>
+            </td>
+            <td>
+              <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
+            </td>
+            <td>
+              <a class="waves-effect waves-light btn-floating btn-small" href="/musiciens/{{ musicien.id }}">
+                <i class="material-icons left">view_headline</i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
   </div>
 
 {% endblock %}
