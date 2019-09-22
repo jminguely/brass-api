@@ -9,14 +9,19 @@
   margin-bottom: 4em;
 }
 
+.container-fluid {
+  padding: 0 $gutter-width;
+}
+
 .table {
   tbody td {
     font-size: 0.8em;
+    vertical-align: top;
   }
-}
 
-.tablesaw tbody tr td:first-child {
-  padding-left: 0.5em;
+  ul {
+    margin: 0;
+  }
 }
 
 .tablesaw-sortable-btn {

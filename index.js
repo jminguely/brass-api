@@ -20,7 +20,7 @@ const base = Airtable.base('appOvGQqOefkMpE9o');
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.render('home.html.twig');
+  res.redirect('/agenda');
 })
 
 app.get('/calendar', function (req, res) {
@@ -174,7 +174,7 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
   });
 })
 
-app.get('/concerts', async function (req, res) {
+app.get('/agenda', async function (req, res) {
 
   const musiciens = await base('Musiciens').select(
     {
@@ -195,7 +195,6 @@ app.get('/concerts', async function (req, res) {
 
   const concerts = await base('Concerts').select(
     {
-      filterByFormula: `Past = 'Future'`,
       sort: [{field: 'Date check-in', direction: 'asc'}]
     }
   ).firstPage();
@@ -234,11 +233,12 @@ app.get('/concerts', async function (req, res) {
     event = {
       id:           concert.id,
       statut:       concert.get('Statut'),
-      title:        concert.get('Titre'),
+      titre:        concert.get('Titre'),
       type:         concert.get('Type'),
-      city:         concert.get('Ville'),
+      ville:         concert.get('Ville'),
       informations: concert.get('Informations'),
-      start:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
+      date:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
+      dateSortable:        moment(concert.get('Date check-in')).format("x"),
       time:         moment(concert.get('Date check-in')).format('HH:mm'),
       effectifs:    effectifs,
       nonRepondu:   nonRepondu
@@ -246,72 +246,13 @@ app.get('/concerts', async function (req, res) {
     events.push(event);
   });
 
-  res.render('concerts.html.twig', {
+  res.render('agenda.html.twig', {
     events : events,
     layout : 'futur'
   });
 })
 
-app.get('/concerts/past', async function (req, res) {
-
-  const musiciens = await base('Musiciens').select().firstPage();
-  
-  let events = [];
-
-  const concerts = await base('Concerts').select(
-    {
-      filterByFormula: `Past = 'Past'`,
-      sort: [{field: 'Date check-in', direction: 'desc'}]
-    }
-  ).firstPage();
-
-  concerts.forEach(concert => {
-    let effectifsForDuplicate = [];
-    let effectifs = {};
-    let event = {};
-    Object.keys(concert.fields).forEach(key => {
-      if (key.includes('[Musiciens]')) {
-        const registre = key.slice(0, -12);
-        effectifs[registre] = {};
-        musiciens.forEach(musicien => {
-          concert.fields[key].forEach(async musicienId => {
-            if (musicien.id === musicienId) {
-              effectifs[registre][musicienId] = [];
-              effectifs[registre][musicienId]['Nom'] = musicien.get('Nom');
-              effectifs[registre][musicienId]['Id'] = musicien.id;
-
-              if (!effectifsForDuplicate.includes(musicienId)){
-                effectifsForDuplicate.push(musicienId);
-              } else {
-                effectifs[registre][musicienId]['Duplicate'] = true;
-              }
-            }
-          });
-        });
-      }
-    });
-
-    event = {
-      id:           concert.id,
-      statut:       concert.get('Statut'),
-      title:        concert.get('Titre'),
-      type:         concert.get('Type'),
-      city:         concert.get('Ville'),
-      informations: concert.get('Informations'),
-      start:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
-      time:         moment(concert.get('Date check-in')).format('HH:mm'),
-      effectifs:    effectifs
-    };
-    events.push(event);
-  });
-
-  res.render('concerts.html.twig', {
-    events : events,
-    layout : 'past'
-  });
-})
-
-app.get('/concerts/:concert_id', async function (req, res) {
+app.get('/agenda/:concert_id', async function (req, res) {
   const concert_id = req.params.concert_id;
 
   const musiciens = await base('Musiciens').select(
@@ -369,7 +310,7 @@ app.get('/concerts/:concert_id', async function (req, res) {
     effectifs:    effectifs,
     nonRepondu:   nonRepondu
   };
-  res.render('concert.html.twig', {
+  res.render('event.html.twig', {
     event : event,
   });
 })

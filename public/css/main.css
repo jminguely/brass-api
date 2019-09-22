@@ -7170,11 +7170,15 @@ a.tablesaw-btn {
 .site-main {
   margin-bottom: 4em; }
 
-.table tbody td {
-  font-size: 0.8em; }
+.container-fluid {
+  padding: 0 1.5rem; }
 
-.tablesaw tbody tr td:first-child {
-  padding-left: 0.5em; }
+.table tbody td {
+  font-size: 0.8em;
+  vertical-align: top; }
+
+.table ul {
+  margin: 0; }
 
 .tablesaw-sortable-btn {
   padding-top: 1em;
