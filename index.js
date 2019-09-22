@@ -19,9 +19,8 @@ const base = Airtable.base('appOvGQqOefkMpE9o');
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
-  res.redirect('/agenda');
-})
+app.get('/', function (req, res) { res.redirect('/agenda');})
+app.get('/concerts', function (req, res) { res.redirect('/agenda');})
 
 app.get('/calendar', function (req, res) {
   let events = [];
