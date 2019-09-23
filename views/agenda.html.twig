@@ -48,20 +48,20 @@
                   </td>
                   <td>
                     <ul>
-                      {% for musicien in gig.effectifs['Saxophone alto'] %}
+                      {% for musicien in gig.effectifs['Trumpet I'] %}
                         {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
                       {% endfor %}
-                      {% for musicien in gig.effectifs['Saxophone tenor'] %}
+                      {% for musicien in gig.effectifs['Trumpet II'] %}
                         {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
                       {% endfor %}
                     </ul>
                   </td>
                   <td>
                     <ul>
-                      {% for musicien in gig.effectifs['Trumpet I'] %}
+                      {% for musicien in gig.effectifs['Saxophone alto'] %}
                         {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
                       {% endfor %}
-                      {% for musicien in gig.effectifs['Trumpet II'] %}
+                      {% for musicien in gig.effectifs['Saxophone tenor'] %}
                         {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
                       {% endfor %}
                     </ul>
