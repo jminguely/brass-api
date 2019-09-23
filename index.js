@@ -275,6 +275,7 @@ app.get('/agenda/:concert_id', async function (req, res) {
   concert = concerts[0];
 
   let nonRepondu = Object.assign({}, nonReponduOriginal);
+
   Object.keys(concert.fields).forEach(key => {
   if (key.includes('[Musiciens]')) {
     const registre = key.slice(0, -12);
@@ -304,8 +305,8 @@ app.get('/agenda/:concert_id', async function (req, res) {
     documents:    concert.get('Feuille de route'),
     informations: concert.get('Informations'),
     commentaires: concert.get('Commentaires internes'),
-    start:        moment(concert.get('Date check-in')).format('LLLL'),
-    end:          moment(concert.get('Date fin')).format('LLLL'),
+    start:        concert.get('Date check-in'),
+    end:          concert.get('Date fin'),
     effectifs:    effectifs,
     nonRepondu:   nonRepondu
   };

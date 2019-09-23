@@ -1,0 +1,15 @@
+{% for id, musicien in event.effectifs[registre] %}
+  <tr>
+    <td>
+      <a href="/musiciens/{{ id }}">
+        <strong>{{musicien.Nom }}</strong>
+      </a>
+    </td>
+    <td>{{ abrv }}</td>
+    {% if musicien.Regime %}
+      <td>
+        <small class="ml-2">({{ musicien.Regime }})</small>
+      </td>
+    {% endif %}
+  </tr>
+{% endfor %}
