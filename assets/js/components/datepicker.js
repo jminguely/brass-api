@@ -68,7 +68,6 @@ export default () => {
   function init() {
     instances.forEach((instance) => {
       instance.el.addEventListener('change', function() { onPickerChange(instance) });
-      onPickerChange(instance);
     });
   }
 

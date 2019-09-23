@@ -102,7 +102,7 @@
             </thead>
 
             {% for gig in musicien.gigs %}
-              <tr class="list-filterable" data-date="{{ gig.dateSortable }}">
+              <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %}" data-date="{{ gig.dateSortable }}">
                 <td>
                   <span class="hide">{{ gig.dateSortable }}</span>
                   {{ gig.date }}

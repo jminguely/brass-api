@@ -35,7 +35,7 @@
           <th></th>
         </thead>
         {% for musicien in musiciens %}
-          <tr class="list-filterable" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
+          <tr class="list-filterable {% if musicien.statut != 'Titulaire' %}hide{% endif %}" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
             <td>
               <a href="/musiciens/{{ musicien.id }}">{{ musicien.nom }}</a>
             </td>

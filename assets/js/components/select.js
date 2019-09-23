@@ -7,7 +7,6 @@ export default () => {
   function init() {
     instances.forEach((instance) => {
       instance.el.addEventListener('change', function() { onSelectChange(instance) });
-      onSelectChange(instance);
     });
   }
 

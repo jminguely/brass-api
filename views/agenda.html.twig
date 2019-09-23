@@ -1,126 +1,127 @@
 {% extends "parts/base.html.twig" %}
 
 {% block content %}
-  <br>
-  <div class="container">
-    <div class="row mb-0">
-      <div class="col s4">
-        <h5 class="mt-5">Agenda</h5>
-      </div>
-      <div class="input-field col s4">
-        <input id="date_start" type="text" class="datepicker" data-filter="start" value="{{ "now"|date("d.m.Y") }}">
-        <label for="date_start">Début</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="date_end" type="text" class="datepicker" data-filter="end">
-        <label for="date_end">Fin</label>
+<br>
+<div class="container">
+  <div class="row mb-0">
+    <div class="col s4">
+      <h5 class="mt-5">Agenda</h5>
+    </div>
+    <div class="input-field col s4">
+      <input id="date_start" type="text" class="datepicker" data-filter="start" value="{{ "now"|date("d.m.Y") }}">
+      <label for="date_start">Début</label>
+    </div>
+    <div class="input-field col s4">
+      <input id="date_end" type="text" class="datepicker" data-filter="end">
+      <label for="date_end">Fin</label>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="card-panel grey lighten-3">
+    <div class="row">
+      <div class="col s12">
+        <table data-tablesaw-sortable class="table tablesaw">
+          <thead class="table-header">
+            <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
+            <th></th>
+            <th>Tpt</th>
+            <th>Saxes</th>
+            <th>Bari</th>
+            <th>Tbn</th>
+            <th>Bas</th>
+            <th>Mc</th>
+            <th>Percu</th>
+            <th>Absent</th>
+            <th>Attente</th>
+          </thead>
+          <tbody>
+            {% for gig in events %}
+            <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %}"
+              data-date="{{ gig.dateSortable }}">
+              <td>
+                <span class="hide">{{ gig.dateSortable }}</span>
+                {{ gig.date }}
+              </td>
+              <td>
+                <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a><br />
+                {{ gig.ville }}
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Trumpet I'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                  {% for musicien in gig.effectifs['Trumpet II'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Saxophone alto'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                  {% for musicien in gig.effectifs['Saxophone tenor'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Saxophone barython'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Trombone'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Sousaphone'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Percu'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['MC'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.effectifs['Absents'] %}
+                  {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
+                  {% endfor %}
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  {% for musicien in gig.nonRepondu %}
+                  <li>{{musicien | split(' ')[0]}}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="card-panel grey lighten-3">
-      <div class="row">
-        <div class="col s12">
-          <table data-tablesaw-sortable class="table tablesaw">
-            <thead class="table-header">
-              <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
-              <th></th>
-              <th>Tpt</th>
-              <th>Saxes</th>
-              <th>Bari</th>
-              <th>Tbn</th>
-              <th>Bas</th>
-              <th>Mc</th>
-              <th>Percu</th>
-              <th>Absent</th>
-              <th>Attente</th>
-            </thead>
-            <tbody>
-              {% for gig in events %}
-                <tr class="list-filterable" data-date="{{ gig.dateSortable }}">
-                  <td>
-                    <span class="hide">{{ gig.dateSortable }}</span>
-                    {{ gig.date }}
-                  </td>
-                  <td>
-                    <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a><br/>
-                    {{ gig.ville }}
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Trumpet I'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                      {% for musicien in gig.effectifs['Trumpet II'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Saxophone alto'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                      {% for musicien in gig.effectifs['Saxophone tenor'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Saxophone barython'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Trombone'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Sousaphone'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Percu'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['MC'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.effectifs['Absents'] %}
-                        {% include "parts/agenda-musicien.html.twig" with {musicien: musicien} %}
-                      {% endfor %}
-                    </ul>
-                  </td>
-                  <td>
-                    <ul>
-                      {% for musicien in gig.nonRepondu %}
-                        <li>{{musicien | split(' ')[0]}}</li>
-                      {% endfor %}
-                    </ul>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 {% endblock %}
