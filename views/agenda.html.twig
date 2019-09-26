@@ -25,6 +25,7 @@
             <thead class="table-header">
               <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
               <th></th>
+              <th>Statut</th>
               <th>Tpt</th>
               <th>Saxes</th>
               <th>Bari</th>
@@ -39,13 +40,23 @@
                 <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %}" data-date="{{ gig.dateSortable }}">
                   <td>
                     <span class="hide">{{ gig.dateSortable }}</span>
-                    <strong>{{ gig.date }}</strong><br/>
-                    {{ gig.statut }}<br/>
+                    {% if gig.start|date("d.m.Y") == gig.end|date("d.m.Y") %}
+                      {{ gig.start|date("d.m.Y") }}
+                      <br/>
+                      {{ gig.start|date("H:i") }}
+                      -
+                      {{ gig.end|date("H:i") }}
+                    {% else %}
+                      {{ gig.start|date("d.m") }}
+                      -<br/>
+                      {{ gig.end|date("d.m.Y") }}
+                    {% endif %}
                   </td>
                   <td>
                     <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a><br/>
                     {{ gig.ville }}
                   </td>
+                  <td>{{ gig.statut }}</td>
                   <td>
                     <ul>
                       {% for musicien in gig.effectifs['Trumpet I'] %}

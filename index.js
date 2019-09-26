@@ -234,11 +234,11 @@ app.get('/agenda', async function (req, res) {
       statut:       concert.get('Statut'),
       titre:        concert.get('Titre'),
       type:         concert.get('Type'),
-      ville:         concert.get('Ville'),
+      ville:        concert.get('Ville'),
       informations: concert.get('Informations'),
-      date:        moment(concert.get('Date check-in')).format("DD.MM.YY"),
-      dateSortable:        moment(concert.get('Date check-in')).format("x"),
-      time:         moment(concert.get('Date check-in')).format('HH:mm'),
+      start:        concert.get('Date check-in'),
+      end:          concert.get('Date fin'),
+      dateSortable: moment(concert.get('Date check-in')).format("x"),
       effectifs:    effectifs,
       nonRepondu:   nonRepondu
     };
