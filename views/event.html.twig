@@ -12,6 +12,14 @@
                 {{ event.city }}
               </h2>
             </div>
+            {% if event.statut %}
+              <div class="m6 s12 col">
+                <strong>Statut</strong>
+              </div>
+              <div class="m6 s12 col">
+                <p>{{ event.statut }}</p>
+              </div>
+            {% endif %}
             {% if event.address %}
               <div class="m6 s12 col">
                 <strong>Adresse</strong>

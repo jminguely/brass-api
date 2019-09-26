@@ -299,6 +299,7 @@ app.get('/agenda/:concert_id', async function (req, res) {
   const event = {
     type:         concert.get('Type'),
     address:      concert.get('Adresse'),
+    statut:       concert.get('Statut'),
     title:        concert.get('Titre'),
     city:         concert.get('Ville'),
     cachet:       concert.get('Cachet'),
