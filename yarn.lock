@@ -174,11 +174,12 @@ acorn@^6.2.1:
   resolved "https://registry.npmjs.org/acorn/-/acorn-6.3.0.tgz#0087509119ffa4fc0a0041d1e93a417e68cb856e"
   integrity sha512-/czfa8BwS88b9gWQVhc8eknunSA2DoJpJyTQkhheIf5E48u1N0R4q/YxxsAeqRrmK9TQ/uYfgLDfZo91UlANIA==
 
-airtable@^0.5.6:
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/airtable/-/airtable-0.5.8.tgz#85fafddf8492b6d6071bc0097c57898e2e6466b8"
+airtable@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.npmjs.org/airtable/-/airtable-0.7.2.tgz#106e87b7139f6a2c9f1bd856583e83626e2f3c04"
+  integrity sha512-BwHIJyXmtUJ78EpnNzs+aYmPK9r0xNeFyKkmSn9I6WvG6QYcXlbDe6rhoEwqEdrjPVL6ZCoNwimJN4l6y5TUJg==
   dependencies:
-    lodash "4.17.10"
+    lodash "4.17.15"
     request "2.88.0"
     xhr "2.3.3"
 
@@ -2508,11 +2509,7 @@ locutus@^2.0.5:
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/locutus/-/locutus-2.0.10.tgz#f903619466a98a4ab76e8b87a5854b55a743b917"
 
-lodash@4.17.10:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-
-lodash@^4.0.0, lodash@^4.17.11, lodash@~4.17.10:
+lodash@4.17.15, lodash@^4.0.0, lodash@^4.17.11, lodash@~4.17.10:
   version "4.17.15"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
