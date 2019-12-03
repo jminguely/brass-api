@@ -6,7 +6,7 @@ const ics = require('ics');
 const moment = require('moment');
 const slugify = require('slugify');
 
-dotenv.load();
+dotenv.config();
 
 moment.locale("fr_FR");
 
@@ -33,14 +33,14 @@ app.get('/calendar', function (req, res) {
     records.forEach(function(record) {
       const date_start = moment(record.get('Date check-in'));
       const date_end = moment(record.get('Date fin'));
-  
+
       let event = {
         title:              `BMF - ${record.get('Titre') || record.get('Type')}`,
         location:           record.get('Ville'),
         description:        `${record.get('API')}\n\n${record.get('Informations') || ""}`,
         url:                record.get('API'),
       }
-  
+
       if (record.get('Date fin')) {
         event.start =       date_start.format('YYYY-M-D-H-mm').split("-").map(Number);
         event.end =         date_end.format('YYYY-M-D-H-mm').split("-").map(Number);
@@ -48,17 +48,17 @@ app.get('/calendar', function (req, res) {
         event.start =       date_start.format('YYYY-M-D').split("-").map(Number);
         event.end =         date_start.format('YYYY-M-D').split("-").map(Number);
       }
-  
+
       events.push(event);
-  
+
     });
-  
+
     fetchNextPage();
-  
+
     const { error, value } = ics.createEvents(events);
     req.is('text/calendar')
     res.send(value);
-  
+
   }, function done(err) {
     if (err) { console.error(err); return; }
   });
@@ -70,7 +70,7 @@ app.get('/musiciens', async function (req, res) {
       view: 'Full'
     }
   ).firstPage();
-  
+
   const effectifs = [];
   const instruments = [];
   const statuts = [];
@@ -91,7 +91,7 @@ app.get('/musiciens', async function (req, res) {
 
     if (instruments.indexOf(musicien.get('Instrument')) === -1) instruments.push(musicien.get('Instrument'));
     if (statuts.indexOf(musicien.get('Statut')) === -1) statuts.push(musicien.get('Statut'));
-    
+
   });
 
   res.render('musiciens.html.twig', {
@@ -147,11 +147,11 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
             }
           })
         });
-      
+
       }
   })
 
-  
+
   let person = {};
 
   person = {
@@ -189,7 +189,7 @@ app.get('/agenda', async function (req, res) {
   musiciens.forEach(musicien => {
     nonReponduOriginal[musicien.id] = musicien.get('Nom');
   });
-  
+
   let events = [];
 
   const concerts = await base('Concerts').select(
@@ -268,7 +268,7 @@ app.get('/agenda/:concert_id', async function (req, res) {
   musiciens.forEach(musicien => {
     nonReponduOriginal[musicien.id] = musicien.get('Nom');
   });
-  
+
   const effectifs = {};
 
   const concerts = await base('Concerts').select({filterByFormula: `RECORD_ID() = '${concert_id}'`}).firstPage();
@@ -320,7 +320,7 @@ app.get('/salaires/:salaire_id', function (req, res) {
   const salaire_id = req.params.salaire_id;
 
   base('Salaires').select({filterByFormula: `RECORD_ID() = '${salaire_id}'`}).eachPage(function page(salaires, fetchNextPage) {
-    
+
     salaire = salaires[0];
 
     let data = {
@@ -345,12 +345,12 @@ app.get('/salaires/:salaire_id', function (req, res) {
     setTimeout(() => {
       res.render('salaires.html.twig', {
         salaire : data,
-      });  
+      });
     }, 1000);
 
 
     fetchNextPage();
-  
+
   }, function done(err) {
     if (err) { console.error(err); return; }
   });

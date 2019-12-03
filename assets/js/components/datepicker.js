@@ -57,7 +57,7 @@ export default () => {
         'Sa'
       ],
       weekdaysAbbrev: ['D','L','Ma','Me','J','V','S']
-      
+
     }
   });
 
@@ -80,7 +80,7 @@ export default () => {
     } else {
       delete filters[instance.el.dataset.filter];
     }
-  
+
     if (Object.keys(filters).length === 0 && filters.constructor === Object) {
       for (var i = 0; i < list.length; ++i) {
         list[i].classList.remove('hide');
