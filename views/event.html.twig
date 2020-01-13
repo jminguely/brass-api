@@ -17,7 +17,7 @@
                 <strong>Statut</strong>
               </div>
               <div class="m6 s12 col">
-                <p>{{ event.statut }}</p>
+                <p class="mt-0">{{ event.statut }}</p>
               </div>
             {% endif %}
             {% if event.address %}
@@ -25,7 +25,7 @@
                 <strong>Adresse</strong>
               </div>
               <div class="m6 s12 col">
-                <p>{{ event.address }}</p>
+                <p class="mt-0">{{ event.address }}</p>
               </div>
             {% endif %}
             {% if event.documents %}
@@ -47,17 +47,20 @@
             </div>
             <div class="m6 s12 col">
               {% if event.start|date("d.m.Y") == event.end|date("d.m.Y") %}
-                <p>{{ event.start|date("d.m.Y") }}
+                <p class="mt-0">
+                  {{ event.start|date("d.m.Y") }}
                   <br/>
                   {{ event.start|date("H:i") }}
                   -
-                  {{ event.end|date("H:i") }}</p>
+                  {{ event.end|date("H:i") }}
+                </p>
               {% else %}
-                <p>
+                <p class="mt-0">
                   <strong>Début:</strong>
                   {{ event.start|date("d.m.Y, H:i") }}<br/>
                   <strong>Fin:</strong>
-                  {{ event.end|date("d.m.Y, H:i") }}</p>
+                  {{ event.end|date("d.m.Y, H:i") }}
+                </p>
               {% endif %}
             </div>
             {% if event.informations %}
@@ -65,7 +68,15 @@
                 <strong>Informations</strong>
               </div>
               <div class="m6 s12 col">
-                <p>{{ event.informations|nl2br }}</p>
+                <p class="mt-0">{{ event.informations|nl2br }}</p>
+              </div>
+            {% endif %}
+            {% if event.setlist %}
+              <div class="m6 s12 col">
+                <strong>Setlist</strong>
+              </div>
+              <div class="m6 s12 col">
+                <p class="mt-0">{{ event.setlist|nl2br }}</p>
               </div>
             {% endif %}
             {% if event.commentaires %}
@@ -73,7 +84,7 @@
                 <strong>Commentaires internes</strong>
               </div>
               <div class="m6 s12 col">
-                <p>{{ event.commentaires|nl2br }}</p>
+                <p class="mt-0">{{ event.commentaires|nl2br }}</p>
               </div>
             {% endif %}
           </div>

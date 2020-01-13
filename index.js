@@ -305,6 +305,7 @@ app.get('/agenda/:concert_id', async function (req, res) {
     cachet:       concert.get('Cachet'),
     documents:    concert.get('Feuille de route'),
     informations: concert.get('Informations'),
+    setlist:      concert.get('Setlist'),
     commentaires: concert.get('Commentaires internes'),
     start:        concert.get('Date check-in'),
     end:          concert.get('Date fin'),
