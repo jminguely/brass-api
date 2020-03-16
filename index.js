@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const ics = require('ics');
 const moment = require('moment');
 const slugify = require('slugify');
+const minifyHTML = require('express-minify-html');
 
 dotenv.config();
 
@@ -18,6 +19,19 @@ Airtable.configure({
 const base = Airtable.base('appOvGQqOefkMpE9o');
 
 app.use(express.static('public'));
+
+app.use(minifyHTML({
+  override: true,
+  exception_url: false,
+  htmlMinifier: {
+    removeComments: true,
+    collapseWhitespace: true,
+    collapseBooleanAttributes: true,
+    removeAttributeQuotes: true,
+    removeEmptyAttributes: true,
+    minifyJS: true
+  }
+}));
 
 app.get('/', function (req, res) { res.redirect('/agenda');})
 app.get('/concerts', function (req, res) { res.redirect('/agenda');})
