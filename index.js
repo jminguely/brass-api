@@ -371,6 +371,6 @@ app.get('/salaires/:salaire_id', function (req, res) {
   });
 })
 
-app.listen(process.env.SERVER_PORT, process.env.SERVER_IP, function () {
-  console.log(`BMF API server on: http://${process.env.SERVER_IP}:${process.env.SERVER_PORT}`)
+app.listen(process.env.PORT, process.env.IP, function () {
+  console.log(`BMF API server on: http://${process.env.IP}:${process.env.PORT}`)
 })
