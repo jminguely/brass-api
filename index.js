@@ -40,7 +40,7 @@ app.get('/calendar', function (req, res) {
   let events = [];
     base('Concerts').select(
       {
-        filterByFormula: `Statut = 'Confirmé'`,
+        filterByFormula: `OR(Statut = 'Confirmé', Statut = 'Booking')`,
         sort: [{field: 'Date check-in', direction: 'asc'}]
       }
     ).eachPage(function page(records, fetchNextPage) {
