@@ -31,6 +31,6 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd www/brass.hiphop/api
-            yarn
+            npm install
       - name: Restart Node app
         run: curl --basic --user "${{ secrets.ALWAYSDATA_API }} account=jminguely:" --data '' --request POST https://api.alwaysdata.com/v1/site/534125/restart/
