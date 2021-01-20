@@ -1,0 +1,36 @@
+name: Preview
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    name: Deploy Node App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: RSync
+        id: deploy
+        uses: Pendect/action-rsyncer@v1.1.0
+        env:
+          DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+        with:
+          flags: '-avzr --delete'
+          options: ''
+          ssh_options: ''
+          src: '/*'
+          dest: 'jminguely@ssh-jminguely.alwaysdata.net:www/brass.hiphop/api'
+      - name: executing remote ssh
+        uses: appleboy/ssh-action@master
+        with:
+          username: 'jminguely'
+          host: 'ssh-jminguely.alwaysdata.net'
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            cd www/brass.hiphop/api
+            npm install
+      - name: Restart Node app
+        run: curl --basic --user "${{ secrets.ALWAYSDATA_API }} account=jminguely:" --data '' --request POST https://api.alwaysdata.com/v1/site/534125/restart/
