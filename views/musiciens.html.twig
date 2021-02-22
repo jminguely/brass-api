@@ -35,19 +35,19 @@
           <th></th>
         </thead>
         {% for musicien in musiciens %}
-          <tr class="list-filterable {% if musicien.statut != 'Titulaire' %}hide{% endif %}" data-statut="{{ musicien.statut }}" data-instrument="{{ musicien.instrument }}">
+          <tr class="list-filterable {% if musicien.fields.Statut != 'Titulaire' %}hide{% endif %}" data-statut="{{ musicien.fields.Statut }}" data-instrument="{{ musicien.fields.Instrument }}">
             <td>
-              <a href="/musiciens/{{ musicien.id }}">{{ musicien.nom }}</a>
+              <a href="/musiciens/{{ musicien.id }}">{{ musicien.fields.Nom }}</a>
             </td>
-            <td>{{ musicien.statut }}</td>
+            <td>{{ musicien.fields.Statut }}</td>
             <td>
-              {{ musicien.instrument }}<br/>
-            </td>
-            <td>
-              <a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a>
+              {{ musicien.fields.Instrument }}<br/>
             </td>
             <td>
-              <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
+              <a href="tel:{{ musicien.fields.Telephone }}">{{ musicien.fields.Telephone }}</a>
+            </td>
+            <td>
+              <a href="mailto:{{ musicien.fields['E-Mail'] }}">{{ musicien.fields['E-Mail'] }}</a>
             </td>
             <td>
               <a class="waves-effect waves-light btn-floating btn-small" href="/musiciens/{{ musicien.id }}">

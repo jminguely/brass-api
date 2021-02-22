@@ -37,16 +37,16 @@
             </thead>
             <tbody>
               {% for gig in events %}
-                <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %} {% if gig.statut == "Annulé" %}text-muted{% endif %}" data-date="{{ gig.dateSortable }}">
+                <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U') %}hide{% endif %} {% if gig.statut == "Annulé" %}text-muted{% endif %}" data-date="{{ gig.dateSortable }}">
                   <td>
                     <span class="hide">{{ gig.dateSortable }}</span>
                     {{ gig.date }}
                   </td>
                   <td>
-                    <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a><br/>
-                    {{ gig.ville }}
+                    <a href="/agenda/{{ gig.id }}">{{ gig.fields.Titre }}</a><br/>
+                    {{ gig.fields.Ville }}
                   </td>
-                  <td>{{ gig.statut }}</td>
+                  <td>{{ gig.fields.Statut }}</td>
                   <td>
                     <ul>
                       {% for musicien in gig.effectifs['Trumpet I'] %}

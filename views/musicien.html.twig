@@ -11,56 +11,55 @@
             <tr>
               <th>Musicien</th>
               <td>
-                {{ musicien.nom }}<br/>
+                {{ musicien.fields.Nom }}<br/>
               </td>
             </tr>
             <tr>
               <th>Instrument</th>
               <td>
-                {{ musicien.instrument }}<br/>
+                {{ musicien.fields.Instrument }}<br/>
               </td>
             </tr>
             <tr>
               <th>Adresse</th>
               <td>
-                {{ musicien.adresse }}<br/>
+                {{ musicien.fields.Adresse }}<br/>
               </td>
             </tr>
             <tr>
               <th>Téléphone</th>
               <td>
-                <a href="tel:{{ musicien.phone }}">{{ musicien.phone }}</a>
+                <a href="tel:{{ musicien.fields.Telephone }}">{{ musicien.fields.Telephone }}</a>
               </td>
             </tr>
             <tr>
               <th>E-Mail</th>
               <td>
-                <a href="mailto:{{ musicien.email }}">{{ musicien.email }}</a>
+                <a href="mailto:{{ musicien.fields['E-Mail'] }}">{{ musicien.fields['E-Mail'] }}</a>
               </td>
             </tr>
             <tr>
               <th>Statut</th>
               <td>
-                {{ musicien.statut }}<br/>
+                {{ musicien.fields.Statut }}<br/>
               </td>
             </tr>
             <tr>
               <th>Date de naissance</th>
               <td>
-                {{ musicien.ddn }}<br/>
+                {{ musicien.fields.DDN }}<br/>
               </td>
             </tr>
-
             <tr>
               <th>Régime</th>
               <td>
-                {{ musicien.regime }}<br/>
+                {{ musicien.fields["Régime"] }}<br/>
               </td>
             </tr>
             <tr>
               <th>Salaires</th>
               <td>
-                {% for salaire in musicien.salaires %}
+                {% for salaire in musicien.fields.Salaires %}
                   <li>
                     <a href="/salaires/{{ salaire }}">
                       Fiche:
