@@ -40,17 +40,7 @@
                 <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %} {% if gig.statut == "Annulé" %}text-muted{% endif %}" data-date="{{ gig.dateSortable }}">
                   <td>
                     <span class="hide">{{ gig.dateSortable }}</span>
-                    {% if gig.start|date("d.m.Y") == gig.end|date("d.m.Y") %}
-                      {{ gig.start|date("d.m.Y") }}
-                      <br/>
-                      {{ gig.start|date("H:i") }}
-                      -
-                      {{ gig.end|date("H:i") }}
-                    {% else %}
-                      {{ gig.start|date("d.m") }}
-                      -<br/>
-                      {{ gig.end|date("d.m.Y") }}
-                    {% endif %}
+                    {{ gig.date }}
                   </td>
                   <td>
                     <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a><br/>

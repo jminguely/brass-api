@@ -243,6 +243,32 @@ app.get('/agenda', async function (req, res) {
       }
     });
 
+    // {% if gig.start|date("d.m.Y") == gig.end|date("d.m.Y") %}
+    //   {{ gig.start|date("d.m.Y") }}
+    //   <br/>
+    //   {{ gig.start|date("H:i") }}
+    //   -
+    //   {{ gig.end|date("H:i") }}
+    // {% else %}
+    //   {{ gig.start|date("d.m") }}
+    //   -<br/>
+    //   {{ gig.end|date("d.m.Y") }}
+    // {% endif %}
+    const startDate = moment(concert.get('Date check-in'));
+    const endDate   = moment(concert.get('Date fin'));
+    let date = "";
+    if (startDate.isSame(endDate, 'day')) {
+      date = `
+        ${startDate.format("DD.MM.YYYY")}<br/>
+        ${startDate.format("HH:mm")}—${endDate.format("HH:mm")}
+      `;
+    } else {
+      date = `
+        ${startDate.format("DD.MM.YYYY")} — <br/>
+        ${endDate.format("DD.MM.YYYY")}
+      `;
+    }
+
     event = {
       id:           concert.id,
       statut:       concert.get('Statut'),
@@ -250,8 +276,7 @@ app.get('/agenda', async function (req, res) {
       type:         concert.get('Type'),
       ville:        concert.get('Ville'),
       informations: concert.get('Informations'),
-      start:        concert.get('Date check-in'),
-      end:          concert.get('Date fin'),
+      date:         date,
       dateSortable: moment(concert.get('Date check-in')).format("x"),
       effectifs:    effectifs,
       nonRepondu:   nonRepondu
