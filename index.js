@@ -181,6 +181,7 @@ app.get('/agenda', async function (req, res) {
   });
 
   let nonReponduOriginal = {};
+
   musiciens.forEach(musicien => {
     nonReponduOriginal[musicien.id] = musicien.fields.Nom;
   });
@@ -192,7 +193,12 @@ app.get('/agenda', async function (req, res) {
   });
 
   concerts.forEach(concert => {
-    let nonRepondu = Object.assign({}, nonReponduOriginal);
+    let nonRepondu = {};
+
+    if (concert.fields.Type === 'Concert') {
+      nonRepondu = Object.assign({}, nonReponduOriginal);
+    }
+
     let effectifsForDuplicate = [];
     let effectifs = {};
     let gig = {};
