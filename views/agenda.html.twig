@@ -46,7 +46,11 @@
                     <a href="/agenda/{{ gig.id }}">{{ gig.fields.Titre }}</a><br/>
                     {{ gig.fields.Ville }}
                   </td>
-                  <td>{{ gig.fields.Statut }}</td>
+                  <td>
+                    <span class="btn-small btn {% if gig.fields.Statut == "Confirmé" %}green{% elseif gig.fields.Statut == "Annulé" or gig.fields.Statut == "Non-dispo" %}red{% else %}blue{% endif %}">
+                      {{ gig.fields.Statut }}
+                    </span>
+                  </td>
                   <td>
                     <ul>
                       {% for musicien in gig.effectifs['Trumpet I'] %}
