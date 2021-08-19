@@ -128,29 +128,20 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
   });
 
   let gigs = [];
-  concerts.forEach(concert => {
-    gigs.push({
-      id: concert.id,
-      date: moment(concert.fields['Date check-in']).format("DD.MM.YY"),
-      dateSortable: moment(concert.fields['Date check-in']).format("x"),
-      titre: concert.fields["Titre"],
-      ville: concert.fields["Ville"],
-      past: concert.fields["Past"],
-      statut: "???",
-    });
-  });
 
   Object.keys(musicien.fields).forEach(key => {
       if (key.includes('Concerts')) {
-
         musicien.fields[key].forEach(async concertId => {
-          gigs.forEach(async (gig, index) => {
-            if (concertId === gig.id){
-              if(key.includes('absent')) {
-                gigs[index]['statut'] = "Absent"
-              }else {
-                gigs[index]['statut'] = "Présent"
-              }
+          concerts.forEach(async (concert, index) => {
+            if (concertId === concert.id && !key.includes('absent')){
+              gigs.push({
+                id: concert.id,
+                date: moment(concert.fields['Date check-in']).format("DD.MM.YY"),
+                dateSortable: moment(concert.fields['Date check-in']).format("x"),
+                titre: concert.fields["Titre"],
+                ville: concert.fields["Ville"],
+                past: concert.fields["Past"],
+              });
             }
           })
         });
