@@ -180,6 +180,8 @@ app.get('/agenda', async function (req, res) {
     }
   });
 
+  const statuts = [];
+
   let nonReponduOriginal = {};
 
   musiciens.forEach(musicien => {
@@ -242,10 +244,14 @@ app.get('/agenda', async function (req, res) {
       nonRepondu:   nonRepondu
     };
     events.push(gig);
+
+    if (statuts.indexOf(concert.fields['Statut']) === -1) statuts.push(concert.fields['Statut']);
+
   });
 
   res.render('agenda.html.twig', {
     events : events,
+    statuts: statuts,
     layout : 'futur'
   });
 })
