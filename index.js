@@ -139,6 +139,8 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
                 date: moment(concert.fields['Date check-in']).format("DD.MM.YY"),
                 dateSortable: moment(concert.fields['Date check-in']).format("x"),
                 titre: concert.fields["Titre"],
+                statut: concert.fields["Statut"],
+                type: concert.fields["Type"],
                 ville: concert.fields["Ville"],
                 past: concert.fields["Past"],
               });

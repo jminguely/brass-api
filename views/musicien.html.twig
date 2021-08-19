@@ -88,6 +88,8 @@
           <table data-tablesaw-sortable class="table tablesaw striped">
             <thead class="table-header">
               <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
+              <th data-tablesaw-sortable-col>Statut</th>
+              <th data-tablesaw-sortable-col>Type</th>
               <th data-tablesaw-sortable-col>Titre</th>
               <th data-tablesaw-sortable-col>Ville</th>
               <th></th>
@@ -98,6 +100,14 @@
                 <td>
                   <span class="hide">{{ gig.dateSortable }}</span>
                   {{ gig.date }}
+                </td>
+                <td>
+                  <span class="btn-small btn {% if gig.statut == "Confirmé" %}green{% elseif gig.statut == "Annulé" or gig.statut == "Non-dispo" %}red{% else %}blue{% endif %}">
+                      {{ gig.statut }}
+                    </span>
+                </td>
+                <td>
+                  {{ gig.type }}
                 </td>
                 <td>
                   <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a>
