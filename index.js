@@ -188,7 +188,7 @@ app.get('/agenda', async function (req, res) {
   concerts.forEach(concert => {
     let nonRepondu = {};
 
-    if (concert.fields.Type === 'Concert' && (concert.fields.Statut === "Booking" || concert.fields.Statut === "Confirmé")) {
+    if (concert.fields.Type === 'Concert' && concert.fields.Statut === "Booking") {
       nonRepondu = Object.assign({}, nonReponduOriginal);
     }
 
