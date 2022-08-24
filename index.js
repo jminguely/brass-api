@@ -322,9 +322,11 @@ app.get('/salaires/:salaire_id', async function (req, res) {
 
   const musicien = musiciens[0];
 
+
   data.musicien.nom = musicien.fields.Nom;
   data.musicien.adresse = musicien.fields.Adresse;
   data.musicien.iban = musicien.fields.IBAN;
+  data.musicien.npaville = musicien.fields["NPA/Ville"];
 
   res.render('salaires.html.twig', {
     salaire : data,
