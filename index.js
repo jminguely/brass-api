@@ -137,7 +137,7 @@ app.get('/musiciens/:musicien_id', async function (req, res) {
               gigs.push({
                 id: concert.id,
                 date: moment(concert.fields['Date check-in']).format("DD.MM.YY"),
-                dateSortable: moment(concert.fields['Date check-in']).format("x"),
+                dateSortable: moment(concert.fields['Date fin']).format("x"),
                 titre: concert.fields["Titre"],
                 statut: concert.fields["Statut"],
                 type: concert.fields["Type"],
@@ -230,7 +230,7 @@ app.get('/agenda', async function (req, res) {
       id:           concert.id,
       fields:       concert.fields,
       date:         date,
-      dateSortable: startDate.format("x"),
+      dateSortable: endDate.format("x"),
       effectifs:    effectifs,
       nonRepondu:   nonRepondu
     };
