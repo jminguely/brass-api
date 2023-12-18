@@ -18,16 +18,16 @@ jobs:
         env:
           DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
         with:
-          flags: '-avzr --delete'
-          options: ''
-          ssh_options: ''
-          src: '/*'
-          dest: 'jminguely@ssh-jminguely.alwaysdata.net:www/brass.hiphop/api'
+          flags: "-avzr --delete"
+          options: ""
+          ssh_options: ""
+          src: "/*"
+          dest: "jminguely@ssh-jminguely.alwaysdata.net:www/brass.hiphop/api"
       - name: executing remote ssh
         uses: appleboy/ssh-action@master
         with:
-          username: 'jminguely'
-          host: 'ssh-jminguely.alwaysdata.net'
+          username: "jminguely"
+          host: "ssh-jminguely.alwaysdata.net"
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd www/brass.hiphop/api

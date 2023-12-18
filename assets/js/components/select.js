@@ -1,12 +1,14 @@
 export default () => {
-  const elems = document.querySelectorAll('select');
+  const elems = document.querySelectorAll("select");
   const instances = M.FormSelect.init(elems);
-  const list = document.querySelectorAll('.list-filterable');
+  const list = document.querySelectorAll(".list-filterable");
   const filters = {};
-  
+
   function init() {
     instances.forEach((instance) => {
-      instance.el.addEventListener('change', function() { onSelectChange(instance) });
+      instance.el.addEventListener("change", function () {
+        onSelectChange(instance);
+      });
     });
   }
 
@@ -21,24 +23,23 @@ export default () => {
 
     if (Object.keys(filters).length === 0 && filters.constructor === Object) {
       for (var i = 0; i < list.length; ++i) {
-        list[i].classList.remove('hide');
+        list[i].classList.remove("hide");
       }
     } else {
       for (var i = 0; i < list.length; ++i) {
         let displayStatus = undefined;
         for (const filterKey in filters) {
           if (displayStatus !== false) {
-            if (filters[filterKey] == list[i].dataset[filterKey]){
-              displayStatus = true
+            if (filters[filterKey] == list[i].dataset[filterKey]) {
+              displayStatus = true;
             } else {
-              displayStatus = false
+              displayStatus = false;
             }
           }
-
         }
 
-        if (displayStatus) list[i].classList.remove('hide');
-        else list[i].classList.add('hide');
+        if (displayStatus) list[i].classList.remove("hide");
+        else list[i].classList.add("hide");
       }
     }
   }
