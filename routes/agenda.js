@@ -8,7 +8,7 @@ const base = require('../config/airtable');
 router.get("/agenda", async function (req, res) {
 
   const musiciens = await base("Musiciens")
-    .select({ maxRecords: 1000, filterByFormula: "{Statut} = 'Titulaire'" })
+    .select({ maxRecords: 1000, filterByFormula: "OR({Statut} = 'Titulaire', {Statut} = 'Remplaçant')" })
     .all();
 
   let nonReponduOriginal = {};
