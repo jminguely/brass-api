@@ -1,140 +1,149 @@
 {% extends "parts/base.html.twig" %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="s12 col">
-        <div class="card-panel grey lighten-4">
-          <div class="row">
-            <div class="s12 col">
-              <h2>
-                {{ event.fields.Titre }},
-                {{ event.fields.Ville }}
-              </h2>
-            </div>
-            {% if event.fields.Statut %}
-              <div class="m6 s12 col">
-                <strong>Statut</strong>
-              </div>
-              <div class="m6 s12 col">
-                <p class="mt-0">{{ event.fields.Statut }}</p>
-              </div>
-            {% endif %}
-            {% if event.fields.Adresse %}
-              <div class="m6 s12 col">
-                <strong>Adresse</strong>
-              </div>
-              <div class="m6 s12 col">
-                <p class="mt-0">{{ event.fields.Adresse }}</p>
-              </div>
-            {% endif %}
-            {% if event.fields.Documents %}
-              <div class="m6 s12 col">
-                <strong>Documents</strong>
-              </div>
-              <div class="m6 s12 col">
-                <ul>
-                  {% for document in event.fields.Documents %}
-                    <li>
-                      <a href="{{document.url}}">{{document.filename}}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
-            <div class="m6 s12 col">
-              <strong>Dates / Heures</strong>
-            </div>
-            <div class="m6 s12 col">
-                <p class="mt-0">
-                  {{ event.date }}
-                </p>
-            </div>
-            {% if event.fields.Informations %}
-              <div class="m6 s12 col">
-                <strong>Informations</strong>
-              </div>
-              <div class="m6 s12 col">
-                <p class="mt-0">{{ event.fields.Informations|nl2br }}</p>
-              </div>
-            {% endif %}
-            {% if event.fields.Setlist %}
-              <div class="m6 s12 col">
-                <strong>Setlist</strong>
-              </div>
-              <div class="m6 s12 col">
-                <p class="mt-0">{{ event.fields.Setlist|nl2br }}</p>
-              </div>
-            {% endif %}
-            {% if event.fields['Commentaires internes'] %}
-              <div class="m6 s12 col">
-                <strong>Commentaires internes</strong>
-              </div>
-              <div class="m6 s12 col">
-                <p class="mt-0">{{ event.fields['Commentaires internes']|nl2br }}</p>
-              </div>
-            {% endif %}
-          </div>
-        </div>
-        <br>
-        <h3>Effectifs</h3>
-        <div class="row">
-          <div class="m6 s12 col">
-            <div class="card-panel green lighten-4">
-              <h3>Présent</h3>
-              <table class="no-style">
-                {% include "parts/event-registre.html.twig" with {registre: 'Trumpet I', abrv: 'tp'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Trumpet II', abrv: 'tp'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Saxophone alto', abrv: 'sax'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Saxophone tenor', abrv: 'sax'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Saxophone barython', abrv: 'sax'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Trombone', abrv: 'tb'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Sousaphone', abrv: 'sousa'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'Percu', abrv: 'perc'} %}
-                {% include "parts/event-registre.html.twig" with {registre: 'MC', abrv: 'mc'} %}
-              </table>
-            </div>
-          </div>
-          <div class="m6 s12 col">
-            <div class="card-panel yellow lighten-2">
-              <h3>Attente de réponse ⚠</h3>
-              {% for id, musicien in event.nonRepondu %}
-                <a href="/musiciens/{{ id }}">
-                  <strong>{{musicien}}</strong>
-                </a><br/>
-              {% endfor %}
-            </div>
-            <div class="card-panel ruby-red lighten-4">
-              <h3>Absents 😕</h3>
-              {% for id, musicien in event.effectifs['Absents'] %}
-                <a href="/musiciens/{{ id }}">
-                  <strong>{{ musicien.Nom }}</strong>
-                </a><br/>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
+	<div class="container">
+		<div class="row">
+			<div class="s12 col">
+				<div class="card-panel grey lighten-4">
+					<div class="row">
+						<div class="s12 col">
+							<h2>
+								{{ event.fields.Titre }},
+								{{ event.fields.Ville }}
+							</h2>
+						</div>
+						{% if event.fields.Statut %}
+							<div class="m6 s12 col">
+								<strong>Statut</strong>
+							</div>
+							<div class="m6 s12 col">
+								<p class="mt-0">{{ event.fields.Statut }}</p>
+							</div>
+						{% endif %}
+						{% if event.fields.Adresse %}
+							<div class="m6 s12 col">
+								<strong>Adresse</strong>
+							</div>
+							<div class="m6 s12 col">
+								<p class="mt-0">{{ event.fields.Adresse }}</p>
+							</div>
+						{% endif %}
+						{% if event.fields.Documents %}
+							<div class="m6 s12 col">
+								<strong>Documents</strong>
+							</div>
+							<div class="m6 s12 col">
+								<ul>
+									{% for document in event.fields.Documents %}
+										<li>
+											<a href="{{document.url}}">{{document.filename}}</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+						<div class="m6 s12 col">
+							<strong>Dates / Heures</strong>
+						</div>
+						<div class="m6 s12 col">
+							<p class="mt-0">
+								{{ event.date }}
+							</p>
+						</div>
+						{% if event.fields.Informations %}
+							<div class="m6 s12 col">
+								<strong>Informations</strong>
+							</div>
+							<div class="m6 s12 col">
+								<p class="mt-0">{{ event.fields.Informations|nl2br }}</p>
+							</div>
+						{% endif %}
+						{% if event.fields.Setlist %}
+							<div class="m6 s12 col">
+								<strong>Setlist</strong>
+							</div>
+							<div class="m6 s12 col">
+								<p class="mt-0">{{ event.fields.Setlist|nl2br }}</p>
+							</div>
+						{% endif %}
+						{% if event.fields['Commentaires internes'] %}
+							<div class="m6 s12 col">
+								<strong>Commentaires internes</strong>
+							</div>
+							<div class="m6 s12 col">
+								<p class="mt-0">{{ event.fields['Commentaires internes']|nl2br }}</p>
+							</div>
+						{% endif %}
+						<div class="m6 s12 col">
+							<strong>Calendar</strong>
+						</div>
+						<div class="m6 s12 col">
+							<a class="waves-effect waves-light btn btn-medium" href="/calendar/{{ event.id }}">
+								event.ics
+								<i class="material-icons right">edit_calendar</i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<br>
+				<h3>Effectifs</h3>
+				<div class="row">
+					<div class="m6 s12 col">
+						<div class="card-panel green lighten-4">
+							<h3>Présent</h3>
+							<table class="no-style">
+								{% include "parts/event-registre.html.twig" with {registre: 'Trumpet I', abrv: 'tp'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Trumpet II', abrv: 'tp'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Saxophone alto', abrv: 'sax'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Saxophone tenor', abrv: 'sax'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Saxophone barython', abrv: 'sax'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Trombone', abrv: 'tb'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Sousaphone', abrv: 'sousa'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'Percu', abrv: 'perc'} %}
+								{% include "parts/event-registre.html.twig" with {registre: 'MC', abrv: 'mc'} %}
+							</table>
+						</div>
+					</div>
+					<div class="m6 s12 col">
+						<div class="card-panel yellow lighten-2">
+							<h3>Attente de réponse ⚠</h3>
+							{% for id, musicien in event.nonRepondu %}
+								<a href="/musiciens/{{ id }}">
+									<strong>{{musicien}}</strong>
+								</a><br/>
+							{% endfor %}
+						</div>
+						<div class="card-panel ruby-red lighten-4">
+							<h3>Absents 😕</h3>
+							{% for id, musicien in event.effectifs['Absents'] %}
+								<a href="/musiciens/{{ id }}">
+									<strong>{{ musicien.Nom }}</strong>
+								</a><br/>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col s12">
-        <div class="alert alert-info">
-          <h3>Mailing</h3>
-          <small>Pour faire un copier/coller</small>
-          {% set mails = [] %}
-          {% for key, registre in event.effectifs %}
-            {% if key != "Absents" %}
-              {% for musicien in registre %}
-                {% set mails = mails|merge([musicien.Mail]) %}
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="alert alert-info">
+					<h3>Mailing</h3>
+					<small>Pour faire un copier/coller</small>
+					{% set mails = [] %}
+					{% for key, registre in event.effectifs %}
+						{% if key != "Absents" %}
+							{% for musicien in registre %}
+								{% set mails = mails|merge([musicien.Mail]) %}
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
 
-          <textarea class="control-form d-block w-100" onclick="this.select()">{{ mails|join(', ') }}</textarea>
-        </div>
-      </div>
-    </div>
-  </div>
+					<textarea class="control-form d-block w-100" onclick="this.select()">{{ mails|join(', ') }}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 <!doctype html>

@@ -3,7 +3,6 @@ const router = express.Router();
 const base = require('../config/airtable');
 const moment = require("moment");
 moment.locale("fr_FR");
-const formatDate = require('../utils/formatDate');
 const ics = require('ics');
 
 const MAX_RECORDS = 1000;

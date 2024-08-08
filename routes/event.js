@@ -9,9 +9,6 @@ router.get("/agenda/:concert_id", async function (req, res) {
   const concert_id = req.params.concert_id;
 
   try {
-
-
-
     const musiciens = await base("Musiciens")
       .select({
         maxRecords: 1000,
@@ -64,6 +61,7 @@ router.get("/agenda/:concert_id", async function (req, res) {
     const endDate = moment(concert.fields["Date fin"]);
 
     const event = {
+      id: concert.id,
       fields: concert.fields,
       date: formatDate(startDate, endDate),
       effectifs: effectifs,
