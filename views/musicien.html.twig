@@ -1,131 +1,132 @@
 {% extends "parts/base.html.twig" %}
 
 {% block content %}
-  <br>
-  <div class="container">
-    <div class="card-panel grey lighten-3">
-      <div class="row">
-        <div class="col s12">
+	<br>
+	<div class="container">
+		<div class="card-panel grey lighten-3">
+			<div class="row">
+				<div class="col s12">
 
-          <table class="table">
-            <tr>
-              <th>Musicien</th>
-              <td>
-                {{ musicien.fields.Nom }}<br/>
-              </td>
-            </tr>
-            <tr>
-              <th>Instrument</th>
-              <td>
-                {{ musicien.fields.Instrument }}<br/>
-              </td>
-            </tr>
-            <tr>
-              <th>Adresse</th>
-              <td>
-                {{ musicien.fields.Adresse }}<br/>
-              </td>
-            </tr>
-            <tr>
-              <th>Téléphone</th>
-              <td>
-                <a href="tel:{{ musicien.fields.Telephone }}">{{ musicien.fields.Telephone }}</a>
-              </td>
-            </tr>
-            <tr>
-              <th>E-Mail</th>
-              <td>
-                <a href="mailto:{{ musicien.fields['E-Mail'] }}">{{ musicien.fields['E-Mail'] }}</a>
-              </td>
-            </tr>
-            <tr>
-              <th>Date de naissance</th>
-              <td>
-                {{ musicien.fields.DDN }}<br/>
-              </td>
-            </tr>
-            <tr>
-              <th>Régime</th>
-              <td>
-                {{ musicien.fields["Régime"] }}<br/>
-              </td>
-            </tr>
-            <tr>
-              <th>Salaires</th>
-              <td>
-                {% for salaire in musicien.fields.Salaires %}
-                  <li>
-                    <a href="/salaires/{{ salaire }}">
-                      Fiche:
-                      {{ loop.index }}</a>
-                  </li>
-                {% endfor %}
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br>
-  <div class="container">
-    <div class="row mb-0">
-      <div class="col s4">
-        <h5 class="mt-5">Concerts</h5>
-      </div>
-      <div class="input-field col s4">
-        <input id="date_start" type="text" class="datepicker" data-filter="start" value="{{ "now"|date("d.m.Y") }}">
-        <label for="date_start">Début</label>
-      </div>
-      <div class="input-field col s4">
-        <input id="date_end" type="text" class="datepicker" data-filter="end">
-        <label for="date_end">Fin</label>
-      </div>
-    </div>
-    <div class="card-panel grey lighten-3">
-      <div class="row">
-        <div class="col s12">
-          <table data-tablesaw-sortable class="table tablesaw striped">
-            <thead class="table-header">
-              <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
-              <th data-tablesaw-sortable-col>Statut</th>
-              <th data-tablesaw-sortable-col>Type</th>
-              <th data-tablesaw-sortable-col>Titre</th>
-              <th data-tablesaw-sortable-col>Ville</th>
-              <th></th>
-            </thead>
+					<table class="table">
+						<tr>
+							<th>Musicien</th>
+							<td>
+								{{ musicien.fields.Nom }}<br/>
+							</td>
+						</tr>
+						<tr>
+							<th>Instrument</th>
+							<td>
+								{{ musicien.fields.Instrument }}<br/>
+							</td>
+						</tr>
+						<tr>
+							<th>Adresse</th>
+							<td>
+								{{ musicien.fields.Adresse }}<br/>
+								{{ musicien.fields["NPA/Ville"] }}
+							</td>
+						</tr>
+						<tr>
+							<th>Téléphone</th>
+							<td>
+								<a href="tel:{{ musicien.fields.Telephone }}">{{ musicien.fields.Telephone }}</a>
+							</td>
+						</tr>
+						<tr>
+							<th>E-Mail</th>
+							<td>
+								<a href="mailto:{{ musicien.fields['E-Mail'] }}">{{ musicien.fields['E-Mail'] }}</a>
+							</td>
+						</tr>
+						<tr>
+							<th>Date de naissance</th>
+							<td>
+								{{ musicien.fields.DDN }}<br/>
+							</td>
+						</tr>
+						<tr>
+							<th>Régime</th>
+							<td>
+								{{ musicien.fields["Régime"] }}<br/>
+							</td>
+						</tr>
+						<tr>
+							<th>Salaires</th>
+							<td>
+								{% for salaire in musicien.fields.Salaires %}
+									<li>
+										<a href="/salaires/{{ salaire }}">
+											Fiche:
+											{{ loop.index }}</a>
+									</li>
+								{% endfor %}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<div class="row mb-0">
+			<div class="col s4">
+				<h5 class="mt-5">Concerts</h5>
+			</div>
+			<div class="input-field col s4">
+				<input id="date_start" type="text" class="datepicker" data-filter="start" value="{{ "now"|date("d.m.Y") }}">
+				<label for="date_start">Début</label>
+			</div>
+			<div class="input-field col s4">
+				<input id="date_end" type="text" class="datepicker" data-filter="end">
+				<label for="date_end">Fin</label>
+			</div>
+		</div>
+		<div class="card-panel grey lighten-3">
+			<div class="row">
+				<div class="col s12">
+					<table data-tablesaw-sortable class="table tablesaw striped">
+						<thead class="table-header">
+							<th data-tablesaw-sortable-col data-tablesaw-sortable-default-col>Date</th>
+							<th data-tablesaw-sortable-col>Statut</th>
+							<th data-tablesaw-sortable-col>Type</th>
+							<th data-tablesaw-sortable-col>Titre</th>
+							<th data-tablesaw-sortable-col>Ville</th>
+							<th></th>
+						</thead>
 
-            {% for gig in musicien.gigs %}
-              <tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %}" data-date="{{ gig.dateSortable }}">
-                <td>
-                  <span class="hide">{{ gig.dateSortable }}</span>
-                  {{ gig.date }}
-                </td>
-                <td>
-                  <span class="btn-small btn {% if gig.statut == "Confirmé" %}green{% elseif gig.statut == "Annulé" or gig.statut == "Non-dispo" %}red{% else %}blue{% endif %}">
-                      {{ gig.statut }}
-                    </span>
-                </td>
-                <td>
-                  {{ gig.type }}
-                </td>
-                <td>
-                  <a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a>
-                </td>
-                <td>
-                  {{ gig.ville }}
-                </td>
-                <td>{{ gig.statut }}</td>
-                <td>
-                  <a class="waves-effect waves-light btn-floating btn-small" href="/agenda/{{ gig.id }}">
-                    <i class="material-icons left">view_headline</i>
-                  </a>
-                </td>
-              </tr>
-            {% endfor %}
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+						{% for gig in musicien.gigs %}
+							<tr class="list-filterable {% if gig.dateSortable < 'now'|date('U')*1000 %}hide{% endif %}" data-date="{{ gig.dateSortable }}">
+								<td>
+									<span class="hide">{{ gig.dateSortable }}</span>
+									{{ gig.date }}
+								</td>
+								<td>
+									<span class="btn-small btn {% if gig.statut == " Confirmé" %}green{% elseif gig.statut == " Annulé" or gig.statut == " non-dispo" %}red{% else %}blue{% endif %}">
+										{{ gig.statut }}
+									</span>
+								</td>
+								<td>
+									{{ gig.type }}
+								</td>
+								<td>
+									<a href="/agenda/{{ gig.id }}">{{ gig.titre }}</a>
+								</td>
+								<td>
+									{{ gig.ville }}
+								</td>
+								<td>{{ gig.statut }}</td>
+								<td>
+									<a class="waves-effect waves-light btn-floating btn-small" href="/agenda/{{ gig.id }}">
+										<i class="material-icons left">view_headline</i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
