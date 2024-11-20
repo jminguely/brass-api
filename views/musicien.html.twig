@@ -51,18 +51,6 @@
 								{{ musicien.fields["Régime"] }}<br/>
 							</td>
 						</tr>
-						<tr>
-							<th>Salaires</th>
-							<td>
-								{% for salaire in musicien.fields.Salaires %}
-									<li>
-										<a href="/salaires/{{ salaire }}">
-											Fiche:
-											{{ loop.index }}</a>
-									</li>
-								{% endfor %}
-							</td>
-						</tr>
 					</table>
 				</div>
 			</div>

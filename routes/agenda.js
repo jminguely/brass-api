@@ -4,12 +4,29 @@ const moment = require("moment");
 moment.locale("fr_FR");
 const formatDate = require('../utils/formatDate');
 const base = require('../config/airtable');
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 86400 }); // Cache for 24 hours
 
 router.get("/agenda", async function (req, res) {
+  let musiciens = cache.get('musiciens');
+  let concerts = cache.get('concerts');
 
-  const musiciens = await base("Musiciens")
-    .select({ maxRecords: 1000, filterByFormula: "OR({Statut} = 'Titulaire', {Statut} = 'Remplaçant')" })
-    .all();
+  if (!musiciens) {
+    musiciens = await base("Musiciens")
+      .select({ maxRecords: 1000, filterByFormula: "OR({Statut} = 'Titulaire', {Statut} = 'Remplaçant')" })
+      .all();
+    cache.set('musiciens', musiciens);
+  }
+
+  if (!concerts) {
+    concerts = await base("Concerts")
+      .select({
+        maxRecords: 1000,
+        sort: [{ field: "Date check-in", direction: "asc" }],
+      })
+      .all();
+    cache.set('concerts', concerts);
+  }
 
   let nonReponduOriginal = {};
 
@@ -18,13 +35,6 @@ router.get("/agenda", async function (req, res) {
   });
 
   let events = [];
-
-  var concerts = await base("Concerts")
-    .select({
-      maxRecords: 1000,
-      sort: [{ field: "Date check-in", direction: "asc" }],
-    })
-    .all();
 
   concerts.forEach((record) => {
     let nonRepondu = {};

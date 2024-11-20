@@ -3,9 +3,16 @@ const router = express.Router();
 const moment = require("moment");
 moment.locale("fr_FR");
 const base = require('../config/airtable');
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 86400 }); // Cache for 24 hours
 
 router.get("/musiciens", async function (req, res) {
-  const musiciens = await base("Musiciens").select().all();
+  let musiciens = cache.get('musiciens');
+
+  if (!musiciens) {
+    musiciens = await base("Musiciens").select().all();
+    cache.set('musiciens', musiciens);
+  }
 
   const effectifs = [];
   const instruments = [];

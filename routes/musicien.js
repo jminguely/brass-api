@@ -3,13 +3,18 @@ const router = express.Router();
 const moment = require("moment");
 moment.locale("fr_FR");
 const base = require('../config/airtable');
+const NodeCache = require('node-cache');
+const cache = new NodeCache({ stdTTL: 86400 }); // Cache for 24 hours
 
 router.get("/musiciens/:musicien_id", async function (req, res) {
   const musicien_id = req.params.musicien_id;
+  let musicien = cache.get(`musicien_${musicien_id}`);
 
-  const musiciens = await base("Musiciens").select({ filterByFormula: `RECORD_ID() = '${musicien_id}'` }).all();
-
-  musicien = musiciens[0];
+  if (!musicien) {
+    const musiciens = await base("Musiciens").select({ filterByFormula: `RECORD_ID() = '${musicien_id}'` }).all();
+    musicien = musiciens[0];
+    cache.set(`musicien_${musicien_id}`, musicien);
+  }
 
   const concerts = await base("Concerts").select({ sort: [{ field: "Date check-in", direction: "asc" }] }).all();
 
