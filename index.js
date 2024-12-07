@@ -5,14 +5,14 @@ moment.locale("fr_FR");
 const app = express();
 
 const agendaRoutes = require("./routes/agenda");
-const calendarRoutes = require("./routes/calendar");
+// const calendarRoutes = require("./routes/calendar");
 const calendarSingleRoutes = require("./routes/event-ics");
 const musiciensRoutes = require("./routes/musiciens");
 const musicienRoutes = require("./routes/musicien");
 const eventRoutes = require("./routes/event");
 
 app.use(agendaRoutes);
-app.use(calendarRoutes);
+// app.use(calendarRoutes);
 app.use(calendarSingleRoutes);
 app.use(musiciensRoutes);
 app.use(musicienRoutes);
