@@ -1,6 +1,8 @@
 const express = require('express');
 const minifyHTML = require('express-minify-html');
 const moment = require("moment");
+const basicAuth = require('express-basic-auth');
+require('dotenv').config();
 moment.locale("fr_FR");
 const app = express();
 
@@ -10,6 +12,11 @@ const calendarSingleRoutes = require("./routes/event-ics");
 const musiciensRoutes = require("./routes/musiciens");
 const musicienRoutes = require("./routes/musicien");
 const eventRoutes = require("./routes/event");
+
+app.use(basicAuth({
+  users: { [process.env.BASIC_AUTH_USER]: process.env.BASIC_AUTH_PASSWORD },
+  challenge: true,
+}));
 
 app.use(agendaRoutes);
 // app.use(calendarRoutes);
